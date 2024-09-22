@@ -10,6 +10,10 @@ export default {
         primary:"#de2c4d",
         secondary:"#fb923c",
     },
+    textColor:{
+      textSecondary:"#fb923c",
+    },
+  
     fontFamily:{
       poppnis:["Poppnis","sans-serif"],
       averia:["Averia serif Libre","serif"],

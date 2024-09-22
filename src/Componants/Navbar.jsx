@@ -56,6 +56,7 @@ const Navbar = () => {
                                     {menu.title}
                                 </a></li>
                         ))}
+                        
                         <div className="">
                             <img width={40} src="./public/All_Icons/Cart_svg.svg" alt="" />
                         </div>
