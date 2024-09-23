@@ -1,6 +1,6 @@
 import React from 'react'
 import { RiPlantFill } from "react-icons/ri";
-import { CiSearch } from "react-icons/ci";
+import { Link } from 'react-router-dom';
 const Navbar = () => {
 
     const NavMenu = [
@@ -15,19 +15,19 @@ const Navbar = () => {
         {
             id: 2,
             title: "About",
-            link: "/"
+            link: "/About"
 
         },
         {
             id: 3,
-            title: "Plants",
-            link: "/"
+            title: "Login",
+            link: "/Login"
 
         },
         {
             id: 4,
             title: "Contact",
-            link: "/"
+            link: "/Contact"
 
         },
 
@@ -53,9 +53,9 @@ const Navbar = () => {
                     <ul className='flex justify-center items-center gap-4 s font-semibold  '>
                         {NavMenu.map((menu) => (
                             <li key={menu.id} className='text-xl '>
-                                <a href={menu.link}>
+                                <Link to={menu.link}>
                                     {menu.title}
-                                </a></li>
+                                </Link></li>
                         ))}
                         
                         <div className="">
