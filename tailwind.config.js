@@ -11,7 +11,7 @@ export default {
         secondary:"#fb923c",
     },
     textColor:{
-      textSecondary:"#fb923c",
+      Secondary:"#fb923c",
     },
   
     fontFamily:{
