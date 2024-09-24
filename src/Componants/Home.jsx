@@ -34,7 +34,7 @@ const Home = () => {
 
     return (
         <>
-        <div className="m-4">
+        <div className="m-4 ">
             <div className="max-h-80 ">
                 <div className="max-h-40 ">
                     <img

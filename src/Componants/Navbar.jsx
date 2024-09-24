@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { RiPlantFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
+import { FaRegUserCircle } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 const Navbar = () => {
+const [showMenu,setShowMenu]= useState(false);
 
     const NavMenu = [
-
-        
         {
             id: 1,
             title: "Home",
@@ -14,28 +15,29 @@ const Navbar = () => {
         },
         {
             id: 2,
-            title: "About",
-            link: "/About"
-
+            title: "Menu",
+            link: "/login"
         },
         {
             id: 3,
-            title: "Login",
-            link: "/Login"
-
+            title: "About",
+            link: "/About"
         },
         {
             id: 4,
             title: "Contact",
             link: "/Contact"
-
         },
-
     ]
+
+     const handleShowMenu =()=>{
+        setShowMenu(preve =>!preve)
+     }
+
     return (
         <>
             <nav>
-                <div className="bg-[#F5F5F5] h-20 flex justify-between items-center px-4">
+                <div className="bg-[#F5F5F5] h-20 w-full flex gap-4 md:gap-7 justify-between items-center px-4      ">
                     {/* Logo Section  */}
                     <div className="flex items-center uppercase text-2xl">
                         <p className='uppercase text-primary'>Eco</p>
@@ -50,18 +52,30 @@ const Navbar = () => {
                         </div>
                     </form>
 
-                    <ul className='flex justify-center items-center gap-4 s font-semibold  '>
+                    <ul className='flex items-center gap-4  font-semibold  '>
                         {NavMenu.map((menu) => (
                             <li key={menu.id} className='text-xl '>
                                 <Link to={menu.link}>
                                     {menu.title}
                                 </Link></li>
                         ))}
-                        
-                        <div className="">
-                            <img width={40} src="./public/All_Icons/Cart_svg.svg" alt="" />
-                        </div>
                     </ul>
+                    <div className="flex gap-8 text-primary">
+                    <div className="text-3xl relative">
+                        <FaShoppingCart />
+                        <div className="absolute -top-1 -right-1 text-white bg-secondary h-4 w-4 rounded-full m-0 p-0 text-sm text-center flex items-center justify-center">0</div>
+                    </div>
+
+                    <div className="text-3xl relative ">
+                    <FaRegUserCircle className='cursor-pointer' onClick={ setShowMenu}/>
+                    { showMenu &&( <div className="absolute right-0 my-2 shadow drop-shadow-md bg-white p-2 text-sm">
+                        <p className="whitespace-nowrap cursor-pointer">New Product</p>
+                        <p className="whitespace-nowrap cursor-pointer">Login</p>
+                   
+                    </div>
+                    )}
+                    </div>
+                    </div>
                 </div>
             </nav>
         </>
