@@ -1,28 +1,29 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+
 
 const Login = () => {
   return (
     <>
-    <div className='w-full  mb-10 mt=0 pt-24 '>
-      <div className='w-[80vh] h-screen mx-auto my-10 px-10 py-15 bg-gray-100'>
-        <div className='flex flex-col gap-7 m-7'>
-        <h1 className='mt-10  text-2xl font-bold'>Sign Up</h1>
-        <form action="">
-            <input type="text" placeholder=' First Name' className='h-[50px]  border-orange-700	border-solid	w-full pl-5 border-2 rounded-md outline-none text-lg	' />
-            <input type="text" placeholder=' First Name' className='h-[50px]  border-orange-700	border-solid	w-full pl-5 border-2 rounded-md outline-none text-lg	' />
-            <input type="email" placeholder='Enter your Email'  className='h-[50px] border-orange-700	border-solid	w-full pl-5 border-2 rounded-md outline-none text-lg	' />
-            <input type="password" placeholder='Enter Your Password'  className='h-[50px] border-orange-700	border-solid	w-full pl-5 border-2 rounded-md outline-none text-lg	' />
-        </form>
-            <button className='w-28 h-11 bg-secondary mt-7 border-none text-xl cursor-pointer font-medium size-20 rounded-lg'>Continue</button>
-            <p className='mt-5 font-medium text-zinc-500 text-lg	' >Already have an account?<span className='font-semibold	text-textSecondary'>Login here.</span></p>
-            <div className='flex items-center mt-6 gap-4 text-lg font-medium text-slate-500 	'>
-                <input type="checkbox" name='' id='' className='checked:bg-secondary'/>
-                <p>By continuing I agree to the terms of use & privacy policy.</p>
-            </div>
+<div className="w-1/3 min-h-[500px] p-8 mx-auto mt-4  bg-gray-100">
+        <div className="mb-4">
+          <img src="\All_Icons\profile.gif" alt="" className=' mx-auto rounded-full overflow-hidden bg-blend-multiply opacity-60 w-20 h-20 mx-' />
         </div>
+        <form action="">
+          <div className="gap-6 flex flex-col mx-auto">
+          <input type="email" name='email'placeholder='Enter Email'className='rounded-full p-2 '/>
+          <input type="pasword" name='password'placeholder='Enter Password'className='rounded-full p-2 ' />
+          <button className='rounded-full p-2 bg-secondary w-40   px-4 mx-auto text-xl my-3'>Login</button>{/* my-3 added */}
+          </div>
 
+        </form>
+
+        {/* page link  added */}
+        <p>
+          Don't have an account?
+          <Link to={"/Signup"}className="text-secondary underline ">SignUp</Link>
+        </p>
       </div>
-    </div>
     </>
   )
 }

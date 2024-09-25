@@ -16,7 +16,7 @@ const [showMenu,setShowMenu]= useState(false);
         {
             id: 2,
             title: "Menu",
-            link: "/login"
+            link: "/Menu"//login to Menu
         },
         {
             id: 3,
@@ -45,7 +45,7 @@ const [showMenu,setShowMenu]= useState(false);
                         <RiPlantFill className='text-secondary text-4xl' />
                     </div>
                     <form action="">
-                        <div className="flex justify-center items-center text-2xl">
+                        <div className="flex justify-center items-center text-2xl gap-1">
                             <input type="text" placeholder='What are you looking for ?' className='w-80 px-4 py-2 rounded-xl text-lg' />
                             <button className='rounded-xl bg-secondary p-2  text-xl'>Search
                             </button>
@@ -67,10 +67,10 @@ const [showMenu,setShowMenu]= useState(false);
                     </div>
 
                     <div className="text-3xl relative ">
-                    <FaRegUserCircle className='cursor-pointer' onClick={ setShowMenu}/>
+                    <FaRegUserCircle className='cursor-pointer' onClick={ handleShowMenu}/>
                     { showMenu &&( <div className="absolute right-0 my-2 shadow drop-shadow-md bg-white p-2 text-sm">
                         <p className="whitespace-nowrap cursor-pointer">New Product</p>
-                        <p className="whitespace-nowrap cursor-pointer">Login</p>
+                        <p className="whitespace-nowrap cursor-pointer"><Link to={"/Login"}>Login</Link></p>{/*Link Added */}
                    
                     </div>
                     )}

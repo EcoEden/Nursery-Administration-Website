@@ -4,7 +4,7 @@ import Signup from './Signup'
 const About = () => {
   return (
     <div>
-      <Signup/>
+     About
     </div>
   )
 }
