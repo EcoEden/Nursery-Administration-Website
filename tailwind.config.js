@@ -12,6 +12,7 @@ export default {
     },
     textColor:{
       Secondary:"#fb923c",
+      primary:"#de2c4d",
     },
   
     fontFamily:{

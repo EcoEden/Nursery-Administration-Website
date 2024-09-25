@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Login = () => {
   return (
     <>
-<div className="w-1/3 min-h-[500px] p-8 mx-auto mt-4  bg-gray-100">
+<div className="w-1/3 min-h-[350px] p-8 mx-auto mt-4  bg-gray-100">
         <div className="mb-4">
           <img src="\All_Icons\profile.gif" alt="" className=' mx-auto rounded-full overflow-hidden bg-blend-multiply opacity-60 w-20 h-20 mx-' />
         </div>
@@ -21,7 +21,7 @@ const Login = () => {
         {/* page link  added */}
         <p>
           Don't have an account?
-          <Link to={"/Signup"}className="text-secondary underline ">SignUp</Link>
+          <Link to={"/Signup"}className="text-secondary underline ">SignUp.</Link>
         </p>
       </div>
     </>
