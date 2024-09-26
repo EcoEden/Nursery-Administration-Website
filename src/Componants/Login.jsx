@@ -11,7 +11,7 @@ const Login = () => {
         </div>
         <form action="">
           <div className="gap-6 flex flex-col mx-auto">
-          <input type="email" name='email'placeholder='Enter Email'className='rounded-full p-2 '/>
+          <input type="email" name='email'placeholder='Enter Email'className='rounded-full p-2  '/>
           <input type="pasword" name='password'placeholder='Enter Password'className='rounded-full p-2 ' />
           <button className='rounded-full p-2 bg-secondary w-40   px-4 mx-auto text-xl my-3'>Login</button>{/* my-3 added */}
           </div>
