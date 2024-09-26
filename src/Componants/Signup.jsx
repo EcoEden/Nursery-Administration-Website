@@ -25,7 +25,7 @@ const Signup = () => {
           {/* page link  added */}
         <p>
           If you have an account?
-          <Link to={"/Login"}className="text-secondary underline ">Login.</Link>
+          <Link to={"/Login"}className="text-secondary  ">Login.</Link>
         </p>
       </div>
     </>
