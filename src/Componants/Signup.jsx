@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
+  const ref = useRef();
+  const passwordref = useRef();
   const navigate = useNavigate();
   const [data, setData] = useState({
     firstName: "",
@@ -24,20 +26,23 @@ const Signup = () => {
 
     })
   };
-   const showPassword = () => {
-        alert("Are you sure to show password")
-        passwordref.current.type = "password"
-        console.log(ref.current.src)
+  const handleUploadProfileImg = (e) => {
+    console.log(e.target.files[0])
+  }
+  const showPassword = () => {
+    alert("Are you sure to show password")
+    passwordref.current.type = "password"
+    console.log(ref.current.src)
 
-        if (ref.current.src.includes("Icons/eyecross.png")) {
-            ref.current.src = "Icons/eye.png"
-            passwordref.current.type = "text"
-        }
-        else {
-            ref.current.src = "Icons/eyecross.png"
-            passwordref.current.type = "password"
-        }
+    if (ref.current.src.includes("Icons/eyecross.png")) {
+      ref.current.src = "All_Icons/eye.png"
+      passwordref.current.type = "text"
     }
+    else {
+      ref.current.src = "All_Icons /eyecross.png"
+      passwordref.current.type = "password"
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,71 +50,84 @@ const Signup = () => {
     if (firstName && email && password && conformPassword) {
       if (password === conformPassword) {
         toast('Password Saved Successfully', {
-                position: "bottom-right",
-                autoClose: 400,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light"
-            });
+          position: "bottom-right",
+          autoClose: 400,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light"
+        });
         navigate("/login")
       } else {
         toast('Password Saved Successfully', {
-                position: "bottom-right",
-                autoClose: 400,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light"
-            });
+          position: "bottom-right",
+          autoClose: 400,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light"
+        });
       }
     } else {
-          toast('All fields required', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light"
-            });    }
+      toast('All fields required', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light"
+      });
+    }
   }
 
   return (
     <>
-     <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition="Bounce"
-            />
-      <div className="w-1/3 min-h-[500px] p-8 mx-auto mt-4  bg-gray-100">
-        <div className="mb-4">
-          <img src="\All_Icons\profile.gif" alt="" className=' mx-auto rounded-full overflow-hidden bg-blend-multiply opacity-60 w-20 h-20 mx-' />
-          <div className="">
-            <p>upload</p>
-
-          </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition="Bounce"
+      />
+      <div className="w-full max-w-sm  min-h-[500px] p-6 mx-auto mt-4 flex-col  bg-gray-100 ">
+        <div className="mb-4 mx-auto rounded-full overflow-hidden bg-blend-multiply opacity-60 w-20 h-24 drop-shadow-md shadow-md relative">
+          <img src="\All_Icons\profile.gif" alt="" className='w-full ' />
+          <label htmlFor='profileImage'>
+            <div className="absolute bottom-0 h-1/3 bg-primary w-full flex justify-center items-center cursor-pointer ">
+              <p className='text-sm p-1 text-white'>Upload</p>
+            </div>
+            <input type={"file"} id="profileImage" accept='image/*' className='hidden' onChange={handleUploadProfileImg} />
+          </label>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="gap-6 flex flex-col mx-auto">
             <input type="text" name="firstName" placeholder='First Name' className='rounded-full p-2 border' value={data.firstName} onChange={handleOnchange} />
             <input type="text" name="lastName" placeholder='Last Name' className='rounded-full p-2 ' value={data.lastName} onChange={handleOnchange} />
             <input type="email" name='email' placeholder='Enter Email' className='rounded-full p-2 ' value={data.email} onChange={handleOnchange} />
-            <input type="password" name='password' placeholder='Enter Password' className='rounded-full p-2 ' value={data.password} onChange={handleOnchange} />
-            <input type="password" name='conformPassword' placeholder='Conform Password' className='rounded-full p-2' value={data.conformPassword} onChange={handleOnchange} />
+            <div className="relative">
+              <input type="password" ref={passwordref} name='password' placeholder='Enter Password' className='rounded-full p-2 ' value={data.password} onChange={handleOnchange} />
+              <span className='absolute right-[3px] top-[4px]' onClick={showPassword}>
+                <img ref={ref} width={28} className=" p-1 cursor-pointer" src="/All_icons/eye.png" alt="eye" />
+              </span>
+            </div>
+            <div className="relative">
+              <input type="password" name='conformPassword' placeholder='Conform Password' className='rounded-full p-2' value={data.conformPassword} onChange={handleOnchange} />
+              <span className='absolute right-[3px] top-[4px]' onClick={showPassword}>
+                <img ref={ref} width={28} className=" p-1 cursor-pointer" src="/All_icons/eye.png" alt="eye" />
+              </span>
+            </div>
             <button className=' flex justify-center  mx-auto rounded-full p-2 bg-secondary w-40  my-3 px-4  text-xl'>SignUp</button>{/* my-3 added */}
 
           </div>
@@ -118,7 +136,7 @@ const Signup = () => {
 
         {/* page link  added */}
         <div className="flex justify-center gap-2  ">
-        <p> If you have an account? </p>
+          <p> If you have an account? </p>
           <span><Link to={"/Login"} className="text-secondary  ">Login.</Link></span>
         </div>
       </div>
