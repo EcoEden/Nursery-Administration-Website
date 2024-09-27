@@ -101,6 +101,7 @@ const Signup = () => {
         theme="light"
         transition="Bounce"
       />
+      <h1>hii</h1>
       <div className="w-full max-w-sm  min-h-[500px] p-6 mx-auto mt-4 flex-col  bg-gray-100 ">
         <div className="mb-4 mx-auto rounded-full overflow-hidden bg-blend-multiply opacity-60 w-20 h-24 drop-shadow-md shadow-md relative">
           <img src="\All_Icons\profile.gif" alt="" className='w-full ' />
