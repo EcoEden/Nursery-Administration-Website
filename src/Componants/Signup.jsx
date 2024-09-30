@@ -1,11 +1,19 @@
 import React, { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { BiShow, BiHide } from "react-icons/bi";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const Signup = () => {
-  const ref = useRef();
-  const passwordref = useRef();
+  const [showPassword, SetShowPassword] = useState(false)
+  const [showConformPassword, setShowConformPassword] = useState(false)
+  const handleShoPassword = () => {
+    SetShowPassword(preve => !preve)
+  }
+  const handleShowConformPassword = () => {
+    setShowConformPassword(preve => !preve)
+  }
   const navigate = useNavigate();
   const [data, setData] = useState({
     firstName: "",
@@ -23,35 +31,20 @@ const Signup = () => {
         ...preve,
         [name]: value
       }
-
     })
   };
   const handleUploadProfileImg = (e) => {
     console.log(e.target.files[0])
   }
-  const showPassword = () => {
-    alert("Are you sure to show password")
-    passwordref.current.type = "password"
-    console.log(ref.current.src)
-
-    if (ref.current.src.includes("Icons/eyecross.png")) {
-      ref.current.src = "All_Icons/eye.png"
-      passwordref.current.type = "text"
-    }
-    else {
-      ref.current.src = "All_Icons /eyecross.png"
-      passwordref.current.type = "password"
-    }
-  }
-
+//Functon for handle form 
   const handleSubmit = (e) => {
     e.preventDefault();
     const { firstName, email, password, conformPassword } = data;
     if (firstName && email && password && conformPassword) {
       if (password === conformPassword) {
-        toast('Password Saved Successfully', {
+        toast(alert("Signup successfully"), {
           position: "bottom-right",
-          autoClose: 400,
+          autoClose: 900,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -59,11 +52,12 @@ const Signup = () => {
           progress: undefined,
           theme: "light"
         });
+        
         navigate("/login")
       } else {
-        toast('Password Saved Successfully', {
+        toast('Password and Conform Password are not equal ', {
           position: "bottom-right",
-          autoClose: 400,
+          autoClose: 900,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -71,11 +65,12 @@ const Signup = () => {
           progress: undefined,
           theme: "light"
         });
+      
       }
     } else {
-      toast('All fields required', {
+      toast.warning('All fields are required ', {
         position: "bottom-right",
-        autoClose: 5000,
+        autoClose: 900,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -90,7 +85,7 @@ const Signup = () => {
     <>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={300}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -116,18 +111,17 @@ const Signup = () => {
             <input type="text" name="firstName" placeholder='First Name' className='rounded-full p-2 border' value={data.firstName} onChange={handleOnchange} />
             <input type="text" name="lastName" placeholder='Last Name' className='rounded-full p-2 ' value={data.lastName} onChange={handleOnchange} />
             <input type="email" name='email' placeholder='Enter Email' className='rounded-full p-2 ' value={data.email} onChange={handleOnchange} />
-            <div className="relative">
-              <input type="password" ref={passwordref} name='password' placeholder='Enter Password' className='rounded-full p-2 ' value={data.password} onChange={handleOnchange} />
-              <span className='absolute right-[3px] top-[4px]' onClick={showPassword}>
-                <img ref={ref} width={28} className=" p-1 cursor-pointer" src="/All_icons/eye.png" alt="eye" />
-              </span>
+
+            <div className="flex relative">
+              <input type={showPassword ? "text" : "password"} name='password' placeholder='Enter Password' id='password' className='rounded-full w-full p-2 ' value={data.password} onChange={handleOnchange} />
+              <span className='text-xl absolute right-0 top-2 p-1' onClick={handleShoPassword}>{showPassword ? <BiShow /> : <BiHide />}</span>
             </div>
-            <div className="relative">
-              <input type="password" name='conformPassword' placeholder='Conform Password' className='rounded-full p-2' value={data.conformPassword} onChange={handleOnchange} />
-              <span className='absolute right-[3px] top-[4px]' onClick={showPassword}>
-                <img ref={ref} width={28} className=" p-1 cursor-pointer" src="/All_icons/eye.png" alt="eye" />
-              </span>
+
+            <div className="flex relative ">
+              <input type={showConformPassword ? "text" : "password"} name='conformPassword' placeholder='Conform Password' className='rounded-full w-full p-2' value={data.conformPassword} onChange={handleOnchange} />
+              <span className='text-xl cursor-pointer absolute right-0 top-2 p-1' onClick={handleShowConformPassword}>{showConformPassword ? <BiShow /> : <BiHide />}</span>
             </div>
+
             <button className=' flex justify-center  mx-auto rounded-full p-2 bg-secondary w-40  my-3 px-4  text-xl'>SignUp</button>{/* my-3 added */}
 
           </div>
