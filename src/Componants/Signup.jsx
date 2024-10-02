@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { json, Link, useNavigate } from 'react-router-dom';
 import { BiShow, BiHide } from "react-icons/bi";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -48,11 +48,23 @@ const Signup = () => {
     })
   }
 //Functon for handle form 
-  const handleSubmit = (e) => {
+// const apiUrl = import.meta.env.VITE_API_URL;
+// console.log(apiUrl)
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const { firstName, email, password, conformPassword } = data;
     if (firstName && email && password && conformPassword) {
       if (password === conformPassword) {
+
+        const fetchData=await fetch("http://localhost:8080/signup",{
+          method:"POST",
+          headers:{
+           "content-type":"application/json"
+          },
+          body:JSON.stringify(data)
+        })
+        const dataRes= await fetchData.json()
+        console.log(dataRes)
         toast(alert("Signup successfully"), {
           position: "bottom-right",
           autoClose: 900,
