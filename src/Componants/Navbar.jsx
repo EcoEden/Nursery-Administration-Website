@@ -71,7 +71,7 @@ const Navbar = () => {
                         <div className="text-3xl relative ">
                             <FaRegUserCircle className='cursor-pointer' onClick={handleShowMenu} />
                             {showMenu && (<div className="absolute right-0 my-2 shadow drop-shadow-md bg-white p-2 text-sm">
-                                <p className="whitespace-nowrap cursor-pointer">New Product</p>
+                                <p className="whitespace-nowrap cursor-pointer"><Link to={"/NewProduct"}>NewProduct</Link></p>
                                 <p className="whitespace-nowrap cursor-pointer"><Link to={"/Login"}>Login</Link></p>{/*Link Added */}
 
                             </div>
