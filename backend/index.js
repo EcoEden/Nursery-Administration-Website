@@ -16,6 +16,22 @@ app.get("/",(req,res)=>{
 }),
 app.post("/signup",(req,res)=>{
    console.log(req.body)
+});
+
+
+//Product Section 
+const ProductSchema=mongooes.Schema({
+   name: String,
+   category: String,
+   iamge: String,
+   price:String,
+   description: String,
+});
+const ProductModel=mongooes.model("ProductModel",ProductSchema);
+
+//save new Product api
+app.post("/uploadProduct",(req,res)=>{
+   console.log(req.body);
 })
 
 app.listen(PORT,()=>console.log(`Server is running on ${PORT}`))

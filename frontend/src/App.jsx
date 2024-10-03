@@ -10,6 +10,7 @@ import About from './Componants/About';
 import Contact from './Componants/Contact';
 import Signup from './Componants/Signup';
 import Menu from './Componants/Menu';
+import NewProduct from './Componants/NewProduct';
 
 function App() {
 
@@ -44,6 +45,11 @@ function App() {
     {
       path:"/menu",
       element:<><Navbar/> <Menu/></>,
+    },
+    //new product path 
+    {
+      path:"/newproduct",
+      element:<><Navbar/> <NewProduct/></>,
     },
   ])
 
