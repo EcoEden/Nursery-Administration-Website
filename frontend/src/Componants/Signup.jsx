@@ -48,13 +48,14 @@ const Signup = () => {
     })
   }
 //Functon for handle form 
+console.log(process.env.REACT_APP_SERVER_DOMAIN)
   const handleSubmit = async(e) => {
     e.preventDefault();
     const { firstName, email, password, conformPassword } = data;
     if (firstName && email && password && conformPassword) {
       if (password === conformPassword) {
 
-        const fetchData=await fetch(`/signup`,{
+        const fetchData=await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/signup`,{
           method:"POST",
           headers:{
            "content-type":"application/json"
@@ -63,6 +64,7 @@ const Signup = () => {
         })
         const dataRes= await fetchData.json()
         console.log(dataRes)
+        
         toast(alert("Signup successfully"), {
           position: "bottom-right",
           autoClose: 900,
