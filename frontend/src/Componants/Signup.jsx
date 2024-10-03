@@ -48,15 +48,13 @@ const Signup = () => {
     })
   }
 //Functon for handle form 
-// const apiUrl = import.meta.env.VITE_API_URL;
-// console.log(apiUrl)
   const handleSubmit = async(e) => {
     e.preventDefault();
     const { firstName, email, password, conformPassword } = data;
     if (firstName && email && password && conformPassword) {
       if (password === conformPassword) {
 
-        const fetchData=await fetch("http://localhost:8080/signup",{
+        const fetchData=await fetch(`/signup`,{
           method:"POST",
           headers:{
            "content-type":"application/json"
