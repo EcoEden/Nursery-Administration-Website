@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { BsCloudUpload } from "react-icons/bs";
 import { ImageToBase64 } from '../utility/ImageToBase64';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const NewProduct = () => {
@@ -34,24 +35,42 @@ const NewProduct = () => {
 
   };
 
-  const handleSubmit = async(e) => {
-    console.log(data);
-    e.preventDefault();
-    
-    const fetchData=await fetch(`${process.env.VITE_API_URL}/uploadProduct`,{
-      method:"post",
-      headers:{
-        "content-type":"application/json",
-      },
-      body:JSON.stringify(data)
-    })
-    
-    const fetchRes=await fetchData.json();
-    console.log(fetchRes)
-    
+  const handleSubmit = async(e)=>{
+    e.preventDefault()
+    console.log(data)
 
-  };
+    const {name,image,category,price} = data
 
+    if(name && image && category && price){
+      const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/uploadProduct`,{
+        method : "POST",
+        headers : {
+          "content-type" : "application/json"
+        },
+        body : JSON.stringify(data)
+      })
+  
+      const fetchRes =  await fetchData.json()
+  
+      console.log(fetchRes)
+      toast(fetchRes.message)
+
+      setData(()=>{
+        return{
+          name : "",
+          category : "",
+          image : "",
+          price : "",
+          description : ""
+        }
+      })
+    }
+    else{
+      toast("Enter required Fields")
+    }
+    
+   
+  }
 
   return (
     <div className='p-4'>
