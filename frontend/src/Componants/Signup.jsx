@@ -1,10 +1,12 @@
 import React, { useRef, useState } from 'react'
 import { json, Link, useNavigate } from 'react-router-dom';
 import { BiShow, BiHide } from "react-icons/bi";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import process from 'process'
+
+
 import { ImageToBase64 } from '../utility/ImageToBase64';
-import  profileImg  from "/All_Icons/profile.gif";
+import profileImg from "/All_Icons/profile.gif";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const Signup = () => {
@@ -23,7 +25,7 @@ const Signup = () => {
     email: "",
     password: "",
     conformPassword: "",
-    image:""
+    image: ""
   });
   console.log(data);
 
@@ -37,88 +39,54 @@ const Signup = () => {
     })
   };
   const handleUploadProfileImg = async (e) => {
-    const data=await ImageToBase64(e.target.files[0]);
+    const data = await ImageToBase64(e.target.files[0]);
     console.log(data)
 
     setData((preve) => {
       return {
         ...preve,
-        image:data
+        image: data
       }
     })
   }
-//Functon for handle form 
-console.log(process.env.REACT_APP_SERVER_DOMAIN)
-  const handleSubmit = async(e) => {
+  //Functon for handle form 
+  console.log(process.env.REACT_APP_SERVER_DOMAIN)
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, email, password, conformPassword } = data;
     if (firstName && email && password && conformPassword) {
       if (password === conformPassword) {
-
-        const fetchData=await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/signup`,{
-          method:"POST",
-          headers:{
-           "content-type":"application/json"
+        //http://localhost:5174/Signup
+        const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/Signup`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json"
           },
-          body:JSON.stringify(data)
+          body: JSON.stringify(data)
         })
-        const dataRes= await fetchData.json()
+        const dataRes = await fetchData.json()
         console.log(dataRes)
-        
-        toast(alert("Signup successfully"), {
-          position: "bottom-right",
-          autoClose: 900,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light"
-        });
-        
-        navigate("/login")
+
+        // alert(dataRes)
+        toast(dataRes.message)
+        if (dataRes.alert) {
+          navigate("/login")
+        }
+
       } else {
-        toast('Password and Conform Password are not equal ', {
-          position: "bottom-right",
-          autoClose: 900,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light"
-        });
-      
+        toast('Password and Conform Password are not equal ')
+         
+
       }
     } else {
-      toast.warning('All fields are required ', {
-        position: "bottom-right",
-        autoClose: 900,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light"
-      });
+      toast.warning('All fields are required ')
+        
     }
   }
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={300}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition="Bounce"
-      />
+      
       <div className="w-full max-w-sm  min-h-[500px] p-6 mx-auto mt-4 flex-col  bg-gray-100 ">
         <div className="mb-4 mx-auto rounded-full overflow-hidden bg-blend-multiply opacity-60 w-20 h-20 drop-shadow-md shadow-md relative">
           <img src={data.image || profileImg} alt="" className='w-full h-full ' />
