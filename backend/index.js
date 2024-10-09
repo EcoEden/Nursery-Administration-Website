@@ -1,101 +1,113 @@
-const express = require("express")// import express
-const cors = require("cors") //import cors
-const mongooes = require("mongoose") //import mongooes
-const app = express()
-const dotenv = require("dotenv");//import dot env
-dotenv.config();// accessing value from the .env file 
- 
-app.use(cors()) //use the cores 
+const express = require("express"); // Import express
+const cors = require("cors"); // Import cors
+const mongoose = require("mongoose"); // Import mongoose
+const dotenv = require("dotenv").config(); // Access values from the .env file
+const multer = require("multer"); // Import multer
 
-//Use the middleware for read the json data
-app.use(express.json({ limit: "10mb" }))
-//port define 
-const PORT = process.env.PORT || 5000;// defining the port 
-//MONGODB CONNECTON
-console.log(process.env.MONGODB_URL)
-mongooes.connect(process.env.MONGODB_URL)
-   .then(() => console.log("Connect to database"))//connect to database
-   .catch((err) => console.log(err))// error is displayed
-//user schema
-const userSchema = mongooes.Schema({
-   firstName: String,
-   lastName: String,
-   email: {
-      type: String,
-      unique: true
-   },
-   password: String,
-   conformPassword: String,
-   image: String
+const app = express(); // Create express app
+
+app.use(cors()); // Use CORS
+
+// Middleware for parsing JSON and URL-encoded data with larger limits
+app.use(express.json({ limit: '50mb' })); // Set a larger limit for JSON
+app.use(express.urlencoded({ limit: '50mb', extended: true })); // Set a larger limit
+
+// Port definition
+const PORT = process.env.PORT || 5000; // Define the port
+
+// MongoDB Connection
+console.log(process.env.MONGODB_URL);
+console.log(process.env.REACT_APP_API_URL);
+mongoose.connect(process.env.MONGODB_URL, {
+    serverSelectionTimeoutMS: 30000
 })
-//user model
-const userModel =mongooes.model("user",userSchema)
+    .then(() => console.log("Connected to database")) // Connect to the database
+    .catch((err) => console.log(err)); // Log any connection errors
 
+// User schema
+const userSchema = mongoose.Schema({
+    firstName: String,
+    lastName: String,
+    email: {
+        type: String,
+        unique: true
+    },
+    password: String,
+    conformPassword: String,
+    image: String
+});
+
+// User model
+const userModel = mongoose.model("user", userSchema);
+
+// Multer setup for file uploads
+const upload = multer({ limits: { fileSize: 100 * 1024 * 1024 } }); // 100MB file size limit
 
 app.get("/", (req, res) => {
-   res.send("Server is running ")
-}),
-   // Sign up api
-   app.post("/signup", (req, res) => {
-      console.log(req.body)
-      const {email}=req.body// access email from frontend
-      userModel.findOne({email:email},(result,err)=>{
-         console.log(result)
-         console.log(err)
-         //Check email is available or not 
-         if(result){
-            res.send({message:"email id is already register",alert:false})
-         }
-         else{
-            const data= userModel(req.body)
-            const save = data.save()  
-            res.send({message: "Successfully sign up",alert:true})
-         }
-
-      })
-   });
-
-   //Login api
-   app.post("/login",(req,res)=>{
-      console.log(req.body)
-      const {email}=req.body;
-       userModel.findOne({email:email},(result,err)=>{
-         if(result){
-   
-           const datasend ={
-            _id:result._id,
-            firstName:result.firstName,
-            lastName:result.lastName,
-            email:result.email,
-            image:result.image,
-           };
-           console.log(datasend)
-           res.send({message:"login is successfully",alert:true,data : datasend});
-         }
-         else{
-            res.send({message:"Email is not register, please signup ",alert:false,});
-
-         }
-       })
-   })
-
-
-//product schema
-const ProductSchema = mongooes.Schema({
-   name: String,
-   category: String,
-   iamge: String,
-   price: String,
-   description: String,
+    res.send("Server is running");
 });
-//product model
-const ProductModel = mongooes.model("Product", ProductSchema);
 
-//save new Product api
-app.post("/uploadProduct", (req, res) => {
-   console.log(req.body);
-})
+// Sign up API
+app.post("/signup", async (req, res) => {
+    console.log(req.body);
+    const { email } = req.body; // Access email from frontend
+    const existingUser = await userModel.findOne({ email: email });
 
-app.listen(PORT, () => console.log(`Server is running on ${PORT}`))
+    // Check if email is available or not
+    if (existingUser) {
+        res.send({ message: "Email ID is already registered", alert: false });
+    } else {
+        const newUser = new userModel(req.body); // Create new user
+        await newUser.save(); // Save the user
+        res.send({ message: "Successfully signed up", alert: true });
+    }
+});
 
+// Login API
+app.post("/login", async (req, res) => {
+    console.log(req.body);
+    const { email } = req.body;
+    const user = await userModel.findOne({ email: email });
 
+    if (user) {
+        const dataSend = {
+            _id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            image: user.image,
+        };
+        console.log(dataSend);
+        res.send({ message: "Login is successful", alert: true, data: dataSend });
+    } else {
+        res.send({ message: "Email is not registered, please sign up", alert: false });
+    }
+});
+
+// Product schema
+const ProductSchema = mongoose.Schema({
+    name: String,
+    category: String,
+    image: String,
+    price: String,
+    description: String,
+});
+
+// Product model
+const ProductModel = mongoose.model("Product", ProductSchema);
+
+// Save new product API
+app.post("/uploadProduct", upload.single('image'), (req, res) => {
+    console.log(req.body); // Log request body
+    console.log(req.file); // Log the uploaded file
+    const newProduct = new ProductModel({
+        ...req.body,
+        image: req.file.path // Save the image path if needed
+    });
+    newProduct.save()
+        .then(() => res.send({ message: "Product uploaded successfully" }))
+        .catch(err => res.status(500).send({ message: "Error uploading product", error: err }));
+});
+
+// Start the server
+app.listen(PORT, () => console.log(`Server is running on ${PORT}`));

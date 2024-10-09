@@ -4,9 +4,10 @@ import { BiShow, BiHide } from "react-icons/bi";
 import process from 'process'
 
 
+
 import { ImageToBase64 } from '../utility/ImageToBase64';
 import profileImg from "/All_Icons/profile.gif";
-import toast, { Toaster } from 'react-hot-toast';
+import {toast, Toaster } from 'react-hot-toast';
 
 
 const Signup = () => {
@@ -50,43 +51,48 @@ const Signup = () => {
     })
   }
   //Functon for handle form 
-  console.log(process.env.REACT_APP_SERVER_DOMAIN)
+  const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
+  const dataFetch = async () => {
+    // e.preventDefault();
+      const { firstName, email, password, conformPassword } = data;
+      if (firstName && email && password && conformPassword) {
+        if (password === conformPassword) {
+          //http://localhost:5174/Signup
+          try{
+          const fetchData = await fetch(`${baseUrl}/signup`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "content-type": "application/json",
+            },
+          });
+          const dataRes = await fetchData.json()
+          console.log(dataRes)
+          // alert(dataRes)
+          toast(dataRes.message)
+          if (dataRes.alert) {
+            navigate("/login")
+          }
+        else {
+          toast('Password and Conform Password are not equal ')
+        }
+        }catch(er){
+          console.log(er)
+        }
+      } else {
+        toast.warning('All fields are required ')
+      }
+  }
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { firstName, email, password, conformPassword } = data;
-    if (firstName && email && password && conformPassword) {
-      if (password === conformPassword) {
-        //http://localhost:5174/Signup
-        const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/Signup`, {
-          method: "POST",
-          headers: {
-            "content-type": "application/json"
-          },
-          body: JSON.stringify(data)
-        })
-        const dataRes = await fetchData.json()
-        console.log(dataRes)
+    await dataFetch();
 
-        // alert(dataRes)
-        toast(dataRes.message)
-        if (dataRes.alert) {
-          navigate("/login")
-        }
-
-      } else {
-        toast('Password and Conform Password are not equal ')
-         
-
-      }
-    } else {
-      toast.warning('All fields are required ')
-        
-    }
   }
 
   return (
     <>
-      
       <div className="w-full max-w-sm  min-h-[500px] p-6 mx-auto mt-4 flex-col  bg-gray-100 ">
         <div className="mb-4 mx-auto rounded-full overflow-hidden bg-blend-multiply opacity-60 w-20 h-20 drop-shadow-md shadow-md relative">
           <img src={data.image || profileImg} alt="" className='w-full h-full ' />

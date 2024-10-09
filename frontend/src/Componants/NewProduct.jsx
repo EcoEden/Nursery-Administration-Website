@@ -14,12 +14,7 @@ const NewProduct = () => {
 
   const handleOnchange = (e) => {
     const { name, value } = e.target;
-    setData((preve) => {
-      return {
-        ...preve,
-        [name]: value
-      }
-    })
+  
   };
 
   const uploadImage = async (e) => {
