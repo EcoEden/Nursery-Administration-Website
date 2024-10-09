@@ -3,6 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { BiShow, BiHide } from "react-icons/bi";
 import { useState } from 'react'
 import {toast} from "react-hot-toast"
+import process from 'process'
 import { useNavigate } from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux'
 import { loginRedux } from '../Redux/userSlice';
@@ -10,7 +11,7 @@ import { loginRedux } from '../Redux/userSlice';
 
 const Login = () => {
   const [showPassword, SetShowPassword] = useState(false)
-  const [showConformPassword, setShowConformPassword] = useState(false)
+  // const [showConformPassword, setShowConformPassword] = useState(false)
   //variable
    const navigate=useNavigate();
 
@@ -44,7 +45,8 @@ const Login = () => {
     e.preventDefault();
     const { email, password } = data;
     if (email && password) {
-      const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/login`, {
+      const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+      const fetchData = await fetch(`${baseUrl}/login`, {
         method: "POST",
         headers: {
           "content-type": "application/json"
@@ -58,7 +60,7 @@ const Login = () => {
       if(dataRes.alert){
         dispatch(loginRedux(dataRes))
         setTimeout(()=>{
-          Navigate("/")
+          navigate("/")
         },1000);
       }
       console.log(userData)

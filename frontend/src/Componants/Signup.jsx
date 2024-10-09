@@ -2,12 +2,13 @@ import React, { useRef, useState } from 'react'
 import { json, Link, useNavigate } from 'react-router-dom';
 import { BiShow, BiHide } from "react-icons/bi";
 import process from 'process'
-
-
+import { useEffect } from 'react';
 
 import { ImageToBase64 } from '../utility/ImageToBase64';
 import profileImg from "/All_Icons/profile.gif";
 import {toast, Toaster } from 'react-hot-toast';
+
+
 
 
 const Signup = () => {
@@ -85,11 +86,17 @@ const Signup = () => {
       }
   }
   }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await dataFetch();
 
-  }
+ 
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      await dataFetch();
+  
+    }
+   
+    
+  
+  
 
   return (
     <>

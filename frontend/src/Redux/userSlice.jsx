@@ -16,8 +16,8 @@ export const userSlice=createSlice({
             console.log(action.payload.data)
             state.__id= action.payload.data.__id
             state.firstName= action.payload.data.firstName
-            state.lastName= action.payload.data.
-            state.email= action.payload.data.
+            state.lastName= action.payload.data.lastName
+            state.email= action.payload.data.email
             state.image= action.payload.data.image
 
 

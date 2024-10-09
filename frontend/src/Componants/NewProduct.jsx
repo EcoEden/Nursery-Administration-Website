@@ -32,8 +32,8 @@ const NewProduct = () => {
   const handleSubmit = async(e) => {
     console.log(data);
     e.preventDefault();
-
-    const fetchData=await fetch(`${process.env.VITE_API_URL}/uploadProduct`,{
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+    const fetchData= await fetch(`${baseUrl}/NewProduct`,{
       method:"post",
       headers:{
         "content-type":"application/json",

@@ -4,6 +4,7 @@ const mongoose = require("mongoose"); // Import mongoose
 const dotenv = require("dotenv").config(); // Access values from the .env file
 const multer = require("multer"); // Import multer
 
+
 const app = express(); // Create express app
 
 app.use(cors()); // Use CORS
