@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { BsCloudUpload } from "react-icons/bs";
 import { ImageToBase64 } from '../utility/ImageToBase64';
+import process from 'process'
 
 
 const NewProduct = () => {

@@ -3,11 +3,13 @@ import { RiPlantFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginRedux } from '../Redux/userSlice';
 const Navbar = () => {
     const [showMenu, setShowMenu] = useState(false);
     const userData=useSelector((state)=>state.user)
     console.log(userData)
+    const dispatch = useDispatch()
 
     const NavMenu = [
         {
@@ -34,6 +36,11 @@ const Navbar = () => {
 
     const handleShowMenu = () => {
         setShowMenu(preve => !preve)
+    }
+
+    // logout function logic is here 
+    const handleLogout =()=>{
+       dispatch(loginRedux())
     }
 
     return (
@@ -70,14 +77,13 @@ const Navbar = () => {
                             <div className="absolute -top-1 -right-1 text-white bg-secondary h-4 w-4 rounded-full m-0 p-0 text-sm text-center flex items-center justify-center">0</div>
                         </div>
                     {/* Display user profile image */}
-                        <div className="text-3xl   " onClick={handleShowMenu}>
+                        <div className="text-3xl " onClick={handleShowMenu}>
                             <div className="cursor-pointer w-10 h-10 rounded-full overflow-hidden drop-shadow ">
-                            { userData.image ? <img src={userData.image} className="w-full h-full"/> :<FaRegUserCircle  />}
+                            { userData.image ? <img src={userData.image} className="w-full h-full"/> : <FaRegUserCircle/>}
                             </div>
-                            {showMenu && (<div className="absolute right-0 my-2 shadow drop-shadow-md bg-white py-2 text-sm">
+                            {showMenu && (<div className="absolute right-0 my-2 mx-4 shadow drop-shadow-md bg-white py-2 text-sm">
                                 <div className="whitespace-nowrap cursor-pointer px-2"><Link to={"/NewProduct"}>New Product</Link></div>
-                               
-                                <div className="whitespace-nowrap cursor-pointer px-2 "><Link to={"/Login"}>Login</Link></div>{/*Link Added */}
+                            {  userData.image ? <p className='px-2 cursor-pointer text-white bg-secondary' onClick={handleLogout}>Logout</p> : <div className="whitespace-nowrap cursor-pointer px-2 "><Link to={"/Login"}>Login</Link></div>  }
 
                             </div>
                             )}
