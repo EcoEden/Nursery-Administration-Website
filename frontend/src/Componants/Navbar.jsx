@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginRedux } from '../Redux/userSlice';
 const Navbar = () => {
     const [showMenu, setShowMenu] = useState(false);
-    const userData=useSelector((state)=>state.user)
+    const userData = useSelector((state) => state.user)
     console.log(userData)
     const dispatch = useDispatch()
 
@@ -39,9 +39,11 @@ const Navbar = () => {
     }
 
     // logout function logic is here 
-    const handleLogout =()=>{
-       dispatch(loginRedux())
-    }
+    const handleLogout = () => {
+        dispatch(loginRedux(null)); // Reset user data properly
+        setShowMenu(false); // Hide menu after logout
+    };
+
 
     return (
         <>
@@ -76,17 +78,28 @@ const Navbar = () => {
                             <FaShoppingCart />
                             <div className="absolute -top-1 -right-1 text-white bg-secondary h-4 w-4 rounded-full m-0 p-0 text-sm text-center flex items-center justify-center">0</div>
                         </div>
-                    {/* Display user profile image */}
+                        {/* Display user profile image */}
                         <div className="text-3xl " onClick={handleShowMenu}>
                             <div className="cursor-pointer w-10 h-10 rounded-full overflow-hidden drop-shadow ">
-                            { userData.image ? <img src={userData.image} className="w-full h-full"/> : <FaRegUserCircle/>}
+                                {userData.image ? <img src={userData.image} className="w-full h-full" /> : <FaRegUserCircle />}
                             </div>
-                            {showMenu && (<div className="absolute right-0 my-2 mx-4 shadow drop-shadow-md bg-white py-2 text-sm">
-                                <div className="whitespace-nowrap cursor-pointer px-2"><Link to={"/NewProduct"}>New Product</Link></div>
-                            {  userData.image ? <p className='px-2 cursor-pointer text-white bg-secondary' onClick={handleLogout}>Logout</p> : <div className="whitespace-nowrap cursor-pointer px-2 "><Link to={"/Login"}>Login</Link></div>  }
-
-                            </div>
+                            {showMenu && (
+                                <div className="absolute top-full right-0 mt-2 shadow drop-shadow-md bg-white py-2 text-sm">
+                                    <div className="whitespace-nowrap cursor-pointer px-2">
+                                        <Link to={"/NewProduct"}>New Product</Link>
+                                    </div>
+                                    {userData.image ? (
+                                        <p className="px-2 cursor-pointer text-white bg-secondary" onClick={handleLogout}>
+                                            Logout
+                                        </p>
+                                    ) : (
+                                        <div className="whitespace-nowrap cursor-pointer px-2">
+                                            <Link to={"/Login"}>Login</Link>
+                                        </div>
+                                    )}
+                                </div>
                             )}
+
                         </div>
                     </div>
                 </div>

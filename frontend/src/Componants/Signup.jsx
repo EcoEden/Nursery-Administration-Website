@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 import { ImageToBase64 } from '../utility/ImageToBase64';
 import profileImg from "/All_Icons/profile.gif";
-import {toast, Toaster } from 'react-hot-toast';
+import { toast, Toaster } from 'react-hot-toast';
 
 
 
@@ -56,11 +56,11 @@ const Signup = () => {
 
   const dataFetch = async () => {
     // e.preventDefault();
-      const { firstName, email, password, conformPassword } = data;
-      if (firstName && email && password && conformPassword) {
-        if (password === conformPassword) {
-          //http://localhost:5174/Signup
-          try{
+    const { firstName, email, password, conformPassword } = data;
+    if (firstName && email && password && conformPassword) {
+      if (password === conformPassword) {
+        //http://localhost:5174/Signup
+        try {
           const fetchData = await fetch(`${baseUrl}/signup`, {
             method: "POST",
             body: JSON.stringify(data),
@@ -75,28 +75,28 @@ const Signup = () => {
           if (dataRes.alert) {
             navigate("/login")
           }
-        else {
-          toast('Password and Conform Password are not equal ')
-        }
-        }catch(er){
+          else {
+            toast('Password and Conform Password are not equal ')
+          }
+        } catch (er) {
           console.log(er)
         }
       } else {
         toast.warning('All fields are required ')
       }
-  }
+    }
   }
 
- 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      await dataFetch();
-  
-    }
-   
-    
-  
-  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await dataFetch();
+
+  }
+
+
+
+
 
   return (
     <>
