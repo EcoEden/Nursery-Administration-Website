@@ -10,6 +10,7 @@ import Contact from './Componants/Contact.jsx';
 import About from './Componants/About.jsx';
 import Login from './Componants/Login.jsx';
 import Signup from './Componants/Signup.jsx';
+import Footer from './Componants/Footer.jsx';
 import NewProduct from './Componants/NewProduct.jsx';
 import {store} from './Redux/index.jsx';
 import { Provider } from 'react-redux';
@@ -25,6 +26,7 @@ const router=createBrowserRouter(
      <Route path='login' element={<Login/>}/>
      <Route path='signup' element={<Signup/>}/>
      <Route path='newproduct' element={<NewProduct/>}/>
+     <Route path='footer' element={<Footer/>}/>
     </Route>
   )
 )
