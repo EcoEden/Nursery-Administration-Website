@@ -1,92 +1,91 @@
-    import React, { useState } from 'react';
-import { GrLinkNext } from "react-icons/gr";
-import { GrLinkPrevious } from "react-icons/gr";
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 
 const Home = () => {
-    const images = [
-        "/public/main_page_img/main.webp",
-        "/public/main_page_img/main.webp",
-        "/public/main_page_img/main1.webp"
-    ];
+  const images = [
+    "/main_page_img/main.webp",
+    "/main_page_img/main1.webp",
+    // "/main_page_img/main2.webp"
+  ];
 
-    // Use state for current index
-    const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-    const prevSlide = () => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? images.length - 1 : prevIndex - 1
-        );
-    };
-
-    const nextSlide = () => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === images.length - 1 ? 0 : prevIndex + 1
-        );
-    };
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            nextSlide();
-        }, 3000)
-        return () => clearInterval(interval);
-    }, [currentIndex]);
-
-    return (
-        <>
-        <div className="m-4 ">
-            <div className="max-h-80 ">
-                <div className="max-h-40 ">
-                    <img
-                        src={images[currentIndex]}
-                        alt="slider"
-                        className='max-h-80 w-full'
-
-                    />
-                </div>
-                <button
-                    className="absolute left-0 top-1/1 transform -translate-y-1/2 bg-gray-800 text-white p-2 m-4"
-                    onClick={prevSlide}
-                >
-                    <GrLinkPrevious />
-                </button>
-                <button
-                    className="absolute right-0 top-1/1 transform -translate-y-1/2 bg-gray-800 text-white p-2 m-4"
-                    onClick={nextSlide}
-                >
-                    <GrLinkNext />
-                </button>
-            </div>
-           
-            </div>
-            <div className=" m-4 mt-60 flex justify-evenly">
-                <div className="w-[60%]  flex flex-col items-center ">
-                    <img className='rounded-full h-40' width={200}src="/public/main_page_img/gardening.webp" alt="Img" />
-                    <p className='text-xl'>Gardening</p>
-                </div>
-                <div className="w-[60%] flex flex-col items-center ">
-                    <img className='rounded-full h-40' width={200}  src="/public/main_page_img/main.webp" alt="Img" />
-                    <p className='text-xl'>Gardening</p>
-                </div>
-                <div className="w-[60%] flex flex-col items-center ">
-                    <img className='rounded-full h-40' width={200}src="/public/main_page_img/main.webp" alt="Img" />
-                    <p className='text-xl'>Gardening</p>
-                </div>
-                <div className="w-[60%]  flex flex-col items-center ">
-                    <img className='rounded-full h-40' width={200}src="/public/main_page_img/main.webp" alt="Img" />
-                    <p className='text-xl'>Gardening</p>
-                </div>
-                <div className="w-[60%] flex flex-col items-center ">
-                    <img className='rounded-full h-40' width={200}src="/public/main_page_img/main.webp" alt="Img" />
-                    <p className='text-xl'>Gardening</p>
-                </div>
-                <div className="w-[60%] flex flex-col items-center ">
-                    <img className='rounded-full h-40' width={200}src="/public/main_page_img/main.webp" alt="Img" />
-                    <p className='text-xl'>Gardening</p>
-                </div>
-            </div>
-        </>
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
+  };
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [currentIndex]);
+
+  const services = [
+    { id: 1, title: "Gardening", img: "/main_page_img/gardening.webp" },
+    { id: 2, title: "Indoor Plants", img: "/main_page_img/main1.webp" },
+    { id: 3, title: "Outdoor Plants", img: "/main_page_img/main2.webp" },
+    { id: 4, title: "Plant Care", img: "/main_page_img/main.webp" },
+    { id: 5, title: "Herbs", img: "/main_page_img/main1.webp" },
+    { id: 6, title: "Decor Pots", img: "/main_page_img/main2.webp" },
+  ];
+
+  return (
+    <>
+      {/* Slider */}
+      <div className="relative w-full h-[500px] overflow-hidden">
+        <img
+          src={images[currentIndex]}
+          alt="Slider"
+          className="w-full h-full object-cover"
+        />
+        <button
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-secondary text-white p-3 rounded-full hover:bg-green-700"
+          onClick={prevSlide}
+        >
+          <GrLinkPrevious size={20} />
+        </button>
+        <button
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-secondary text-white p-3 rounded-full hover:bg-green-700"
+          onClick={nextSlide}
+        >
+          <GrLinkNext size={20} />
+        </button>
+      </div>
+
+      {/* Services */}
+      <section className="py-16 bg-green-50">
+        <h2 className="text-4xl font-bold text-center text-secondary mb-12">
+          Our Services
+        </h2>
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
+          {services.map((service) => (
+            <div
+              key={service.id}
+              className="flex flex-col items-center bg-white rounded-2xl shadow-md hover:shadow-2xl transition p-6"
+            >
+              <img
+                src={service.img}
+                alt={service.title}
+                className="h-40 w-40 rounded-full object-cover mb-4"
+              />
+              <p className="text-xl font-semibold text-primary">
+                {service.title}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  );
 };
 
 export default Home;
