@@ -10,7 +10,11 @@ const Home = () => {
     "/main_page_img/indoor.jpg",
     "/main_page_img/outdoor.jpg",
     "/main_page_img/plantcare.jpg",
-    "/main_page_img/herbs.jpg"
+
+    "/main_page_img/home.webp",
+
+    "/main_page_img/main2.webp"
+
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -37,12 +41,14 @@ const Home = () => {
   }, [currentIndex]);
 
   const services = [
+
     { id: 1, title: "Gardening", img: "/main_page_img/Gardening.jpg", link: "/gardening" },
     { id: 2, title: "Indoor Plants", img: "/main_page_img/indoor.jpg", link: "/indoor-plants" },
     { id: 3, title: "Outdoor Plants", img: "/main_page_img/outdoor.jpg", link: "/outdoor-plants" },
     { id: 4, title: "Plant Care", img: "/main_page_img/plantcare.jpg", link: "/plant-care" },
     { id: 5, title: "Herbs", img: "/main_page_img/herbs.jpg", link: "/herbs" },
     { id: 6, title: "Decor Pots", img: "/main_page_img/main2.jpg", link: "/decor-pots" },
+
   ];
 
   return (
