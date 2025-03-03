@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { RiPlantFill } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaRegUserCircle, FaShoppingCart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginRedux } from '../Redux/userSlice';
+import { logoutRedux } from '../Redux/userSlice';
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   const NavMenu = [
     { id: 1, title: 'Home', link: '/' },
@@ -20,10 +21,10 @@ const Navbar = () => {
   const handleShowMenu = () => setShowMenu((prev) => !prev);
 
   const handleLogout = () => {
-    dispatch(loginRedux());
+    dispatch(logoutRedux());
+    navigate('/login');
   };
 
-  // ✅ Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -33,6 +34,14 @@ const Navbar = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const handleProfileClick = () => {
+    if (userData && userData.name) {
+      navigate('/profile');
+    } else {
+      setShowMenu((prev) => !prev);
+    }
+  };
 
   return (
     <nav>
@@ -82,7 +91,7 @@ const Navbar = () => {
             </span>
           </div>
 
-          <div onClick={handleShowMenu} className="cursor-pointer relative">
+          <div onClick={handleProfileClick} className="cursor-pointer relative">
             <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
               {userData.image ? (
                 <img
@@ -95,33 +104,23 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Dropdown Menu */}
-            {showMenu && (
+            {!userData.name && showMenu && (
               <div
                 ref={dropdownRef}
                 className="absolute right-0 mt-4 bg-white shadow-lg rounded-lg py-2 w-40 text-sm z-50"
               >
                 <Link
-                  to="/NewProduct"
+                  to="/login"
                   className="block px-4 py-2 hover:bg-green-50 hover:text-green-700"
                 >
-                  New Product
+                  Login
                 </Link>
-                {userData.image ? (
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-white bg-secondary hover:bg-green-700 rounded-b-lg"
-                  >
-                    Logout
-                  </button>
-                ) : (
-                  <Link
-                    to="/Login"
-                    className="block px-4 py-2 hover:bg-green-50 hover:text-green-700"
-                  >
-                    Login
-                  </Link>
-                )}
+                <Link
+                  to="/signup"
+                  className="block px-4 py-2 hover:bg-green-50 hover:text-green-700"
+                >
+                  Sign Up
+                </Link>
               </div>
             )}
           </div>

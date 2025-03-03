@@ -100,7 +100,7 @@ const Signup = () => {
 
   return (
     <>
-      <div className="w-full max-w-sm  min-h-[500px] p-6 mx-auto mt-4 flex-col  bg-gray-100 ">
+      <div className="w-1/3 min-h-[350px] p-8 mx-auto mt-4  bg-gray-100 ">
         <div className="mb-4 mx-auto rounded-full overflow-hidden bg-blend-multiply opacity-60 w-20 h-20 drop-shadow-md shadow-md relative">
           <img src={data.image || profileImg} alt="" className='w-full h-full ' />
           <label htmlFor='profileImage'>
