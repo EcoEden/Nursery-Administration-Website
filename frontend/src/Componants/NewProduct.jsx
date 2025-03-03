@@ -31,7 +31,7 @@ const NewProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(data);
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+    const baseUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
     const response = await fetch(`${baseUrl}/NewProduct`, {
       method: "POST",
       headers: {

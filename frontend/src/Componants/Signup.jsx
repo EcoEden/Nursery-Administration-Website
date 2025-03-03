@@ -67,6 +67,7 @@ const Signup = () => {
             headers: {
               "content-type": "application/json",
             },
+           
           });
           const dataRes = await fetchData.json()
           console.log(dataRes)

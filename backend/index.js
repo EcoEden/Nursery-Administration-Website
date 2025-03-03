@@ -98,7 +98,7 @@ const ProductSchema = mongoose.Schema({
 const ProductModel = mongoose.model("Product", ProductSchema);
 
 // Save new product API
-app.post("/uploadProduct", upload.single('image'), (req, res) => {
+app.post("/NewProduct", upload.single('image'), (req, res) => {
     console.log(req.body); // Log request body
     console.log(req.file); // Log the uploaded file
     const newProduct = new ProductModel({

@@ -20,7 +20,7 @@ const About = () => {
           {/* Image */}
           <div className="w-full md:w-1/2">
             <img
-              src="https://source.unsplash.com/600x400/?plants,garden"
+              src="/main_page_img/main1.webp"
               alt="About EcoEden"
               className="rounded-2xl shadow-lg"
             />

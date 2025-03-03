@@ -5,7 +5,9 @@ const Home = () => {
   const images = [
     "/main_page_img/main.webp",
     "/main_page_img/main1.webp",
-    // "/main_page_img/main2.webp"
+    "/main_page_img/home.webp",
+
+    "/main_page_img/main2.webp"
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -32,10 +34,10 @@ const Home = () => {
   const services = [
     { id: 1, title: "Gardening", img: "/main_page_img/gardening.webp" },
     { id: 2, title: "Indoor Plants", img: "/main_page_img/main1.webp" },
-    { id: 3, title: "Outdoor Plants", img: "/main_page_img/main2.webp" },
+    { id: 3, title: "Outdoor Plants", img: "/main_page_img/main1.webp" },
     { id: 4, title: "Plant Care", img: "/main_page_img/main.webp" },
     { id: 5, title: "Herbs", img: "/main_page_img/main1.webp" },
-    { id: 6, title: "Decor Pots", img: "/main_page_img/main2.webp" },
+    { id: 6, title: "Decor Pots", img: "/main_page_img/main1.webp" },
   ];
 
   return (
