@@ -31,7 +31,7 @@ const NewProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(data);
-    const baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+    const baseUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
     const response = await fetch(`${baseUrl}/NewProduct`, {
       method: "POST",
       headers: {
@@ -45,7 +45,7 @@ const NewProduct = () => {
   };
 
   return (
-    <div className="min-h-screen bg-green-50 p-6">
+    <div className="min-h-screen bg-green-50 p-6 select-none cursor-default">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-10">
         <h2 className="text-4xl font-bold text-secondary text-center mb-8">
           Add New Product

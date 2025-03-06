@@ -3,7 +3,7 @@ import { RiPlantFill } from "react-icons/ri";
 
 const About = () => {
   return (
-    <section className="bg-green-50 py-16 px-6 md:px-20">
+    <section className="bg-green-50 py-16 px-6 md:px-20 select-none cursor-default">
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-12">
@@ -20,7 +20,7 @@ const About = () => {
           {/* Image */}
           <div className="w-full md:w-1/2">
             <img
-              src="https://source.unsplash.com/600x400/?plants,garden"
+              src="/main_page_img/main1.webp"
               alt="About EcoEden"
               className="rounded-2xl shadow-lg"
             />
