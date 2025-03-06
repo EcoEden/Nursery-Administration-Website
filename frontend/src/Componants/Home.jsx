@@ -11,10 +11,6 @@ const Home = () => {
     "/main_page_img/outdoor.jpg",
     "/main_page_img/plantcare.jpg",
 
-    "/main_page_img/home.webp",
-
-    "/main_page_img/main2.webp"
-
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -54,7 +50,7 @@ const Home = () => {
   return (
     <>
       {/* Slider */}
-      <div className="relative w-full h-[55vh] overflow-hidden m-2">
+      <div className="relative w-full h-[55vh] overflow-hidden m-2 select-none cursor-default">
         <img
           src={images[currentIndex]}
           alt="Slider"
@@ -77,7 +73,7 @@ const Home = () => {
       {/* Services */}
       <section className="py-16 bg-green-50">
         <h2 className="text-4xl font-bold text-center text-secondary mb-12">
-          Our Services
+        EcoCart
         </h2>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
           {services.map((service) => (

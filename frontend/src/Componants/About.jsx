@@ -3,7 +3,7 @@ import { RiPlantFill } from "react-icons/ri";
 
 const About = () => {
   return (
-    <section className="bg-green-50 py-16 px-6 md:px-20">
+    <section className="bg-green-50 py-16 px-6 md:px-20 select-none cursor-default">
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-12">

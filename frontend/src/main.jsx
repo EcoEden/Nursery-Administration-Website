@@ -19,6 +19,8 @@ import OutdoorPlants from './Componants/Services/OutdoorPlants.jsx';
 import PlantCare from './Componants/Services/PlantCare.jsx';
 import Herbs from './Componants/Services/Herbs.jsx';
 import DecorPots from './Componants/Services/DecorPots.jsx';
+import ProductPage from './Componants/ProductPage.jsx';
+
 import { store } from './Redux/index.jsx';
 import { Provider } from 'react-redux';
 
@@ -27,7 +29,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route index element={<Home />} />
-      <Route path='menu' element={<Menu />} />
+      <Route path='ourcollection' element={<Menu />} />
       <Route path='contact' element={<Contact />} />
       <Route path='about' element={<About />} />
       <Route path='login' element={<Login />} />
@@ -42,6 +44,9 @@ const router = createBrowserRouter(
       <Route path='plant-care' element={<PlantCare />} />
       <Route path='herbs' element={<Herbs />} />
       <Route path='decor-pots' element={<DecorPots />} />
+      
+
+      <Route path="/product/:id" element={<ProductPage />} />
 
     </Route>
   )

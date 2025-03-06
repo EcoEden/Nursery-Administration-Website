@@ -45,7 +45,7 @@ const NewProduct = () => {
   };
 
   return (
-    <div className="min-h-screen bg-green-50 p-6">
+    <div className="min-h-screen bg-green-50 p-6 select-none cursor-default">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-10">
         <h2 className="text-4xl font-bold text-secondary text-center mb-8">
           Add New Product
