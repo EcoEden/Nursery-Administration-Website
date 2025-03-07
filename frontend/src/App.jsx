@@ -4,6 +4,7 @@ import './App.css'
 import Navbar from './Componants/Navbar'
 import Footer from './Componants/Footer';
 import toast, { Toaster } from 'react-hot-toast';
+import Navbar1 from './Componants/Navbar1'
 
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
 
   return (
     <> <Toaster />
-    <Navbar/>
+    <Navbar1/>
+    {/* <Navbar/> */}
       <main>
         <Outlet/>
       </main>

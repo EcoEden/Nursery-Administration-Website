@@ -10,7 +10,7 @@ const Home = () => {
     "/main_page_img/indoor.jpg",
     "/main_page_img/outdoor.jpg",
     "/main_page_img/plantcare.jpg",
-
+    
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
