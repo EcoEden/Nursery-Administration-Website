@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const multer = require("multer");
 const User = require("./models/User");
+const UserProfile = require("./models/Profile");
 const Product = require("./models/Product");
 
 const app = express();
@@ -94,6 +95,29 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// Route to fetch user details by ID
+app.get('/users/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    // Validate the ObjectId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: 'Invalid user ID format' });
+    }
+
+    const user = await User.findById(userId).select('-password'); // Exclude password field
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 app.post("/NewProduct", upload.single('image'), (req, res) => {
   const newProduct = new Product({
     ...req.body,
@@ -147,6 +171,32 @@ app.get('/products/:id', async (req, res) => {
 
   res.json(product);
 });
+
+
+app.get('/search/:query', async (req, res) => {
+  try {
+    const query = req.params.query;
+
+    if (!query) {
+      return res.status(400).json({ message: 'Query parameter is required' });
+    }
+
+    const products = await Product.find({
+      $or: [
+        { name: { $regex: query, $options: 'i' } },
+        { category: { $regex: query, $options: 'i' } },
+      ],
+    });
+
+    res.json(products); // Returns empty array if no matches.
+  } catch (error) {
+    console.error('Error searching products:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
 
 app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
 

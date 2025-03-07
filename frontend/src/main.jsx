@@ -12,7 +12,6 @@ import Login from './Componants/Login.jsx';
 import Signup from './Componants/Signup.jsx';
 import Footer from './Componants/Footer.jsx';
 import NewProduct from './Componants/NewProduct.jsx';
-import Profile from './Componants/Profile.jsx';
 import Gardening from './Componants/Services/Gardening.jsx';
 import IndoorPlants from './Componants/Services/IndoorPlants.jsx';
 import OutdoorPlants from './Componants/Services/OutdoorPlants.jsx';
@@ -20,6 +19,8 @@ import PlantCare from './Componants/Services/PlantCare.jsx';
 import Herbs from './Componants/Services/Herbs.jsx';
 import DecorPots from './Componants/Services/DecorPots.jsx';
 import ProductPage from './Componants/ProductPage.jsx';
+import UserProfile from './Componants/UserProfile.jsx';
+import SearchResults from './Componants/SearchResults';
 
 import { store } from './Redux/index.jsx';
 import { Provider } from 'react-redux';
@@ -36,6 +37,8 @@ const router = createBrowserRouter(
       <Route path='signup' element={<Signup />} />
       <Route path='newproduct' element={<NewProduct />} />
       <Route path='footer' element={<Footer />} />
+      <Route path="/profile/:userId" element={<UserProfile />} />
+
       
       {/* Service Pages */}
       <Route path='gardening' element={<Gardening />} />
@@ -47,6 +50,8 @@ const router = createBrowserRouter(
       
 
       <Route path="/product/:id" element={<ProductPage />} />
+      <Route path="/search/:query" element={<SearchResults />} />
+
 
     </Route>
   )

@@ -17,8 +17,30 @@ const GardeningEquipment = () => {
     fetchEquipment();
   }, []);
 
+  // Add to Cart Handler (localStorage-based)
+  const handleAddToCart = (e, item) => {
+    e.preventDefault(); // Prevents Link navigation
+
+    // Get existing cart from localStorage
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Check if the product is already in cart
+    const existingItem = cart.find((cartItem) => cartItem._id === item._id);
+
+    if (existingItem) {
+      existingItem.quantity += 1; // Increase quantity
+    } else {
+      cart.push({ ...item, quantity: 1 }); // Add new product
+    }
+
+    // Save updated cart to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    alert('Product added to cart!');
+  };
+
   return (
-    <section className="min-h-screen bg-green-50 py-16 px-6 md:px-20 select-none cursor-default">
+    <section className="min-h-screen bg-green-50 py-5 px-6 md:px-20 select-none cursor-default">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-5xl font-bold text-secondary text-center mb-12">
           Gardening Equipment
@@ -42,7 +64,7 @@ const GardeningEquipment = () => {
                 <p className="text-xl font-bold text-secondary mt-2">₹{item.price}</p>
                 <button
                   className="mt-4 bg-secondary hover:bg-green-700 text-white px-6 py-2 rounded-lg text-lg font-medium transition"
-                  onClick={(e) => e.preventDefault()} // Prevents button from triggering Link navigation
+                  onClick={(e) => handleAddToCart(e, item)}
                 >
                   Add to Cart
                 </button>
