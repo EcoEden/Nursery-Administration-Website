@@ -19,10 +19,11 @@ const ProductPage = () => {
     }, [id]);
 
     if (!product)
-        return <div className="text-center mt-10">Loading...</div>;
+        return <div className="text-center min-h-screen text-4xl bg-green-50 mt-10">L o a d i n g . . .</div>;
 
     return (
-        <div className="max-w-5xl mx-auto p-6 pt-12 select-none cursor-default">
+        <section className="min-h-70vh bg-green-50 py-5 px-6 md:px-20 select-none cursor-default">
+        <div className="max-w-5xl mx-auto p-6 pt-12 select-none cursor-default bg-green-50">
             <div className="grid md:grid-cols-2 gap-10">
                 <div className="w-full h-96">
                     <img
@@ -47,6 +48,7 @@ const ProductPage = () => {
             </div>
 
         </div>
+        </section>
     );
 };
 

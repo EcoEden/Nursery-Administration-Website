@@ -18,8 +18,8 @@ const IndoorPlants = () => {
   }, []);
 
   return (
-    <section className="min-h-screen bg-green-50 py-16 px-6 md:px-20 select-none cursor-default">
-      <div className="max-w-6xl mx-auto">
+    <section className="min-h-screen bg-green-50 py-5 px-6 md:px-20 select-none cursor-default">
+      <div className="max-w-6xl mx-auto max-h-5xl">
         <h1 className="text-5xl font-bold text-secondary text-center mb-12">
           Indoor Plants
         </h1>
