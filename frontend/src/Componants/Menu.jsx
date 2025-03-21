@@ -24,7 +24,7 @@ const Menu = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="min-h-screen bg-green-50 flex justify-center items-center">
         <p className="text-2xl">Loading plants...</p>
       </div>
     );
@@ -55,9 +55,9 @@ const Menu = () => {
               <h3 className="text-2xl font-semibold text-primary">{product.name}</h3>
               <p className="text-lg text-gray-500 my-1">{product.category}</p>
               <p className="text-xl font-bold text-secondary mt-2">₹{product.price}</p>
-              <button className="mt-4 bg-secondary hover:bg-green-700 text-white px-6 py-2 rounded-lg text-lg font-medium transition">
+              {/* <button className="mt-4 bg-secondary hover:bg-green-700 text-white px-6 py-2 rounded-lg text-lg font-medium transition">
                 Add to Cart
-              </button>
+              </button> */}
             </div>
             </Link>
           ))}

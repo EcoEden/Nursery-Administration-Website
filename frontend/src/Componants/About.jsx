@@ -18,11 +18,11 @@ const About = () => {
         {/* Content */}
         <div className="flex flex-col md:flex-row items-center gap-10">
           {/* Image */}
-          <div className="w-full md:w-1/2">
+          <div className="w-full  md:w-1/2">
             <img
-              src="/main_page_img/main1.webp"
+              src="/main_page_img/aboutpage.jpg"
               alt="About EcoEden"
-              className="rounded-2xl shadow-lg"
+              className="rounded-2xl w-full h-full object-cover shadow-lg"
             />
           </div>
 

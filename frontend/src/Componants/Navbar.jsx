@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RiPlantFill } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -7,8 +7,22 @@ import defaultAvatar from '/main_page_img/default_profile_img.png';
 
 const Navbar = () => {
   const userData = useSelector((state) => state.user);
+  const cartData = useSelector((state) => state.cart.items || []);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const [profileImage, setProfileImage] = useState(defaultAvatar);
+
+  // 🔹 Update Profile Image when user logs in
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user')) || {};
+    if (userData?.image) {
+      setProfileImage(userData.image);
+    } else if (storedUser?.image) {
+      setProfileImage(storedUser.image);
+    } else {
+      setProfileImage(defaultAvatar);
+    }
+  }, [userData]);
 
   const NavMenu = [
     { id: 1, title: 'Home', link: '/' },
@@ -17,8 +31,11 @@ const Navbar = () => {
   ];
 
   const handleProfileClick = () => {
-    if (userData._id) {
-      navigate(`/profile/${userData._id}`);
+    const storedUser = JSON.parse(localStorage.getItem('user')) || {};
+    const userId = userData?._id || storedUser?._id;
+
+    if (userId) {
+      navigate(`/profile/${userId}`);
     } else {
       navigate('/login');
     }
@@ -43,6 +60,7 @@ const Navbar = () => {
           </div>
         </Link>
 
+        {/* 🔎 Search Bar */}
         <form onSubmit={handleSearch}>
           <div className="flex items-center gap-2">
             <input
@@ -61,6 +79,7 @@ const Navbar = () => {
           </div>
         </form>
 
+        {/* 🌿 Navigation Menu */}
         <ul className="flex items-center gap-6 text-lg font-medium">
           {NavMenu.map((menu) => (
             <li key={menu.id}>
@@ -74,23 +93,23 @@ const Navbar = () => {
           ))}
         </ul>
 
+        {/* 🛒 Cart & Profile */}
         <div className="flex items-center gap-6 text-3xl text-primary relative">
+          {/* Cart */}
           <Link to="/cart">
             <div className="relative cursor-pointer hover:text-green-700 transition duration-300">
               <FaShoppingCart />
               <span className="absolute -top-1 -right-2 bg-secondary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                0
+                {cartData.length || 0}
               </span>
             </div>
           </Link>
 
-          <div
-            onClick={handleProfileClick}
-            className="cursor-pointer relative"
-          >
+          {/* Profile Picture */}
+          <div onClick={handleProfileClick} className="cursor-pointer relative">
             <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
               <img
-                src={userData.image || defaultAvatar}
+                src={profileImage}
                 alt="User"
                 className="w-full h-full object-cover"
                 onError={(e) => {

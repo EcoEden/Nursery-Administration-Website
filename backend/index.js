@@ -1,131 +1,110 @@
 const express = require("express");
-const cors = require("cors");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const dotenv = require("dotenv").config();
-const multer = require("multer");
-const User = require("./models/User");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const UserProfile = require("./models/Profile");
 const Product = require("./models/Product");
+const Cart = require("./models/cartModel");
 
 const app = express();
-
 app.use(cors());
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(process.env.MONGODB_URL, {
-  serverSelectionTimeoutMS: 30000
-})
-  .then(() => console.log("Connected to database"))
-  .catch((err) => console.log(err));
+// ✅ Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URL, { serverSelectionTimeoutMS: 30000 })
+  .then(() => console.log("✅ Connected to database"))
+  .catch((err) => console.log("❌ Database Connection Error:", err));
 
-// const userSchema = mongoose.Schema({
-//   firstName: String,
-//   lastName: String,
-//   email: { type: String, unique: true },
-//   password: String,
-//   conformPassword: String,
-//   image: String
-// });
-
-// const userModel = mongoose.model("user", userSchema);
-
-const upload = multer({ limits: { fileSize: 100 * 1024 * 1024 } });
-
-// const ProductSchema = mongoose.Schema({
-//   name: String,
-//   category: String,
-//   image: String,
-//   price: String,
-//   description: String,
-// });
-
-// const ProductModel = mongoose.model("products", ProductSchema);
-
-// const ProductR = mongoose.model("product", new mongoose.Schema({
-//   name: String,
-//   price: String,
-//   image: String,
-//   category: String,
-//   description: String
-// }));
-
-// const cartSchema = mongoose.Schema({
-//   userId: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
-//   productId: { type: mongoose.Schema.Types.ObjectId, ref: "product", required: true },
-//   quantity: { type: Number, default: 1 },
-// });
-
-// const CartModel = mongoose.model("cart", cartSchema);
-
-app.get("/", (req, res) => {
-  res.send("Server is running");
+// ✅ User Schema & Model
+const userSchema = new mongoose.Schema({
+  firstName: String,
+  lastName: String,
+  email: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  image: String,
 });
 
-app.post("/signup", async (req, res) => {
-  const { email } = req.body;
-  const existingUser = await User.findOne({ email });
+const User = mongoose.model("User", userSchema);
 
-  if (existingUser) {
-    res.send({ message: "Email ID is already registered", alert: false });
-  } else {
-    const newUser = new User(req.body);
-    await newUser.save();
-    res.send({ message: "Successfully signed up", alert: true });
+// ✅ Generate JWT Token
+const generateToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "3d" });
+};
+
+// ✅ Middleware for Authentication
+const authMiddleware = async (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
   }
-});
 
-app.post("/login", async (req, res) => {
-  const { email } = req.body;
-  const user = await User.findOne({ email });
+  const token = authHeader.split(" ")[1];
 
-  if (user) {
-    const dataSend = {
-      _id: user._id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      image: user.image,
-    };
-    res.send({ message: "Login is successful", alert: true, data: dataSend });
-  } else {
-    res.send({ message: "Email is not registered, please sign up", alert: false });
-  }
-});
-
-// Route to fetch user details by ID
-app.get('/users/:id', async (req, res) => {
   try {
-    const userId = req.params.id;
-
-    // Validate the ObjectId
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ message: 'Invalid user ID format' });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await User.findById(decoded.id).select("-password");
+    if (!req.user) {
+      return res.status(401).json({ message: "Unauthorized: User not found" });
     }
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Not authorized, token failed" });
+  }
+};
 
-    const user = await User.findById(userId).select('-password'); // Exclude password field
+// ✅ Signup Route
+app.post("/signup", async (req, res) => {
+  const { firstName, lastName, email, password, image } = req.body;
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+  try {
+    const userExists = await User.findOne({ email });
+    if (userExists) return res.status(400).json({ message: "User already exists" });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ firstName, lastName, email, password: hashedPassword, image });
+
+    await newUser.save();
+    res.status(201).json({ message: "User registered successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
+// ✅ Login Route
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: "Invalid email or password" });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: "Invalid email or password" });
+
+    const token = generateToken(user._id);
+    const { password: _, ...userWithoutPassword } = user.toObject();
+
+    res.json({ message: "Login successful", token, user: userWithoutPassword });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
+// ✅ Get User Details (Protected)
+app.get("/users/:id", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     res.json(user);
   } catch (error) {
-    console.error('Error fetching user:', error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: "Server error", error });
   }
-});
-
-app.post("/NewProduct", upload.single('image'), (req, res) => {
-  const newProduct = new Product({
-    ...req.body,
-    image: req.file ? req.file.path : req.body.image
-  });
-  newProduct.save()
-    .then(() => res.send({ message: "Product uploaded successfully" }))
-    .catch(err => res.status(500).send({ message: "Error uploading product", error: err }));
 });
 
 
@@ -196,8 +175,96 @@ app.get('/search/:query', async (req, res) => {
 });
 
 
+// 🔹 ADD TO CART ROUTE
+// ✅ Add item to cart
+app.post("/cart/add", authMiddleware, async (req, res) => {
+  try {
+    console.log("Received Cart Request:", req.body);
+
+    const { userId, productId, quantity } = req.body;
+
+    if (!userId || !productId || !quantity) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    let cartItem = await Cart.findOne({ userId, productId });
+    if (cartItem) {
+      cartItem.quantity += quantity;
+      await cartItem.save();
+    } else {
+      cartItem = new Cart({ userId, productId, quantity });
+      await cartItem.save();
+    }
+
+    res.status(200).json({ message: "Item added to cart", cartItem });
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/cart", authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.id; // Get user ID from token
+    const cartItems = await Cart.find({ userId }).populate("productId"); // ✅ Populate product details
+
+    res.json(cartItems);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching cart items" });
+  }
+});
+
+app.put("/cart/:id", authMiddleware, async (req, res) => {
+  try {
+    const cartItemId = req.params.id;
+    const { quantity } = req.body;
+
+    if (quantity < 1) {
+      return res.status(400).json({ message: "Quantity must be at least 1" });
+    }
+
+    const updatedCartItem = await Cart.findByIdAndUpdate(
+      cartItemId,
+      { quantity },
+      { new: true }
+    );
+
+    if (!updatedCartItem) {
+      return res.status(404).json({ message: "Cart item not found" });
+    }
+
+    res.status(200).json(updatedCartItem);
+  } catch (error) {
+    console.error("Error updating cart item:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 
-app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
 
 
+app.delete("/cart/:id", authMiddleware, async (req, res) => {
+  try {
+    const cartItemId = req.params.id;
+    const userId = req.user.id; // Extract user ID from auth middleware
+
+    // ✅ Check if the cart item exists and belongs to the user
+    const cartItem = await Cart.findOne({ _id: cartItemId, userId });
+
+    if (!cartItem) {
+      return res.status(404).json({ message: "Cart item not found" });
+    }
+
+    // ✅ Delete the cart item
+    await Cart.findByIdAndDelete(cartItemId);
+
+    res.status(200).json({ message: "Item removed successfully" });
+  } catch (error) {
+    console.error("Error removing item from cart:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+// ✅ Start the Server
+app.listen(PORT, () => console.log(`🚀 Server running on PORT ${PORT}`));

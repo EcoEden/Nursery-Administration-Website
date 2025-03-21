@@ -1,42 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCartRedux } from "../../Redux/cartSlice"; 
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const GardeningEquipment = () => {
   const [equipment, setEquipment] = useState([]);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEquipment = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/gardening-equipment');
+        const response = await axios.get("http://localhost:5000/gardening-equipment");
         setEquipment(response.data);
       } catch (error) {
-        console.error('Error fetching equipment:', error);
+        console.error("Error fetching equipment:", error);
       }
     };
     fetchEquipment();
   }, []);
 
-  // Add to Cart Handler (localStorage-based)
-  const handleAddToCart = (e, item) => {
-    e.preventDefault(); // Prevents Link navigation
+  const handleAddToCart = async (event, item) => {
+    event.stopPropagation(); // Prevents Link navigation
+    event.preventDefault(); // Stops default event
 
-    // Get existing cart from localStorage
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const storedUser = JSON.parse(localStorage.getItem("user")) || {}; 
+    const userId = user?._id || storedUser?._id;
 
-    // Check if the product is already in cart
-    const existingItem = cart.find((cartItem) => cartItem._id === item._id);
-
-    if (existingItem) {
-      existingItem.quantity += 1; // Increase quantity
-    } else {
-      cart.push({ ...item, quantity: 1 }); // Add new product
+    if (!userId) {
+      navigate("/login");
+      return;
     }
 
-    // Save updated cart to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/cart/add",
+        {
+          userId,
+          productId: item._id,
+          quantity: 1,
+        },
+        {
+          headers: { Authorization: `Bearer ${user.token || storedUser.token}` },
+        }
+      );
 
-    alert('Product added to cart!');
+      if (response.status === 200) {
+        dispatch(addToCartRedux({ ...item, quantity: 1 }));
+        alert("✅ Added to cart!");
+      } else {
+        alert("❌ Failed to add to cart.");
+      }
+    } catch (error) {
+      alert("❌ Error adding to cart.");
+    }
   };
 
   return (
@@ -62,9 +82,10 @@ const GardeningEquipment = () => {
                 />
                 <h3 className="text-2xl font-semibold text-primary">{item.name}</h3>
                 <p className="text-xl font-bold text-secondary mt-2">₹{item.price}</p>
+                
                 <button
                   className="mt-4 bg-secondary hover:bg-green-700 text-white px-6 py-2 rounded-lg text-lg font-medium transition"
-                  onClick={(e) => handleAddToCart(e, item)}
+                  onClick={(event) => handleAddToCart(event, item)}
                 >
                   Add to Cart
                 </button>
