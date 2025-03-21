@@ -8,9 +8,6 @@ import { ImageToBase64 } from '../utility/ImageToBase64';
 import profileImg from "/All_Icons/profile.gif";
 import { toast, Toaster } from 'react-hot-toast';
 
-
-
-
 const Signup = () => {
   const [showPassword, SetShowPassword] = useState(false)
   const [showConformPassword, setShowConformPassword] = useState(false)
@@ -67,7 +64,7 @@ const Signup = () => {
             headers: {
               "content-type": "application/json",
             },
-           
+
           });
           const dataRes = await fetchData.json()
           console.log(dataRes)
@@ -94,10 +91,6 @@ const Signup = () => {
     await dataFetch();
 
   }
-
-
-
-
 
   return (
     <>

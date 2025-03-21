@@ -64,7 +64,7 @@ const Navbar = () => {
         </form>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex items-center gap-6 text-lg font-medium">
+        <ul className="hidden md:flex items-center gap-6 text-lg font-medium hover:font-bold  ">
           {NavMenu.map((menu) => (
             <li key={menu.id}>
               <Link

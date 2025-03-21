@@ -10,7 +10,7 @@ const Home = () => {
     "/main_page_img/indoor.jpg",
     "/main_page_img/outdoor.jpg",
     "/main_page_img/plantcare.jpg",
-    
+
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,9 +20,6 @@ const Home = () => {
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
-
-  
-
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
@@ -73,7 +70,7 @@ const Home = () => {
       {/* Services */}
       <section className="py-16 bg-green-50">
         <h2 className="text-4xl font-bold text-center text-secondary mb-12">
-        EcoCart
+          EcoCart
         </h2>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
           {services.map((service) => (
