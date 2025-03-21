@@ -1,34 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  _id: "",  // Fixed here
-  firstName: "",
-  lastName: "",
-  email: "",
-  image: "",
+  user: JSON.parse(localStorage.getItem("user")) || null, // ✅ Load from localStorage
+  token: localStorage.getItem("token") || null,
 };
 
-export const userSlice = createSlice({
-  name: "user",
+const userSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
-    loginRedux: (state, action) => {
-      console.log(action.payload.data);
-      state._id = action.payload.data._id; // Fixed here
-      state.firstName = action.payload.data.firstName;
-      state.lastName = action.payload.data.lastName;
-      state.email = action.payload.data.email;
-      state.image = action.payload.data.image;
+    setUser: (state, action) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      localStorage.setItem("user", JSON.stringify(action.payload.user)); // ✅ Store user in localStorage
+      localStorage.setItem("token", action.payload.token);
     },
-    logoutRedux: (state) => {
-      state._id = "";
-      state.firstName = "";
-      state.lastName = "";
-      state.email = "";
-      state.image = "";
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+      localStorage.removeItem("user"); // ✅ Remove from localStorage on logout
+      localStorage.removeItem("token");
     },
   },
 });
 
-export const { loginRedux, logoutRedux } = userSlice.actions;
+export const { setUser, logout } = userSlice.actions;
 export default userSlice.reducer;
