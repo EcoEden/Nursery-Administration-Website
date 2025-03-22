@@ -14,7 +14,7 @@ const GardeningEquipment = () => {
   useEffect(() => {
     const fetchEquipment = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/gardening-equipment");
+        const response = await axios.get("http://localhost:5000/products?category=Gardening Equipment");
         setEquipment(response.data);
       } catch (error) {
         console.error("Error fetching equipment:", error);

@@ -14,7 +14,7 @@ const OutdoorPlants = () => {
   useEffect(() => {
     const fetchOutdoorPlants = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/outdoor-plants");
+        const response = await axios.get("http://localhost:5000/products?category=Outdoor Plant");
         setOutdoorPlants(response.data);
       } catch (error) {
         console.error("Error fetching outdoor plants:", error);

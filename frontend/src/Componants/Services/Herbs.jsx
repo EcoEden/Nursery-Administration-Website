@@ -14,7 +14,7 @@ const Herbs = () => {
   useEffect(() => {
     const fetchHerbs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/herbs");
+        const response = await axios.get("http://localhost:5000/products?category=Herbs");
         setHerbs(response.data);
       } catch (error) {
         console.error("Error fetching herbs:", error);

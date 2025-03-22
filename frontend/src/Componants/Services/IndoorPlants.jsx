@@ -14,7 +14,7 @@ const IndoorPlants = () => {
   useEffect(() => {
     const fetchIndoorPlants = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/indoor-plants");
+        const response = await axios.get("http://localhost:5000/products?category=Indoor Plant");
         setIndoorPlants(response.data);
       } catch (error) {
         console.error("Error fetching indoor plants:", error);

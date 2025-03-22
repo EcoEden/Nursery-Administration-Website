@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCartRedux } from "../../Redux/cartSlice"; 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const DecorPots = () => {
   const [decorPots, setDecorPots] = useState([]);
@@ -13,7 +13,7 @@ const DecorPots = () => {
   useEffect(() => {
     const fetchDecorPots = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/decor-pots");
+        const response = await axios.get("http://localhost:5000/products?category=Decor Pots");
         setDecorPots(response.data);
       } catch (error) {
         console.error("Error fetching decor pots:", error);
@@ -32,7 +32,6 @@ const DecorPots = () => {
       return;
     }
 
-
     try {
       const response = await axios.post(
         "http://localhost:5000/cart/add",
@@ -50,10 +49,10 @@ const DecorPots = () => {
         dispatch(addToCartRedux({ ...pot, quantity: 1 }));
         alert("Added to cart!");
       } else {
-        alert(" Failed to add to cart.");
+        alert("Failed to add to cart.");
       }
     } catch (error) {
-      alert(" Error adding to cart.");
+      alert("Error adding to cart.");
     }
   };
 
@@ -70,25 +69,24 @@ const DecorPots = () => {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {decorPots.map((pot) => (
             <Link to={`/product/${pot._id}`} key={pot._id}>
-            <div
-              key={pot._id}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition p-6 flex flex-col items-center text-center cursor-pointer"
-            >
-              <img
-                src={pot.image}
-                alt={pot.name}
-                className="h-40 w-40 object-cover rounded-full mb-4"
-              />
-              <h3 className="text-2xl font-semibold text-primary">{pot.name}</h3>
-              <p className="text-xl font-bold text-secondary mt-2">₹{pot.price}</p>
-              
-              <button
-                onClick={(event) => handleAddToCart(event, pot)}
-                className="mt-3 px-4 py-2  bg-secondary hover:bg-green-700 text-white rounded-lg "
+              <div
+                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition p-6 flex flex-col items-center text-center cursor-pointer"
               >
-                Add to Cart
-              </button>
-            </div>
+                <img
+                  src={pot.image}
+                  alt={pot.name}
+                  className="h-40 w-40 object-cover rounded-full mb-4"
+                />
+                <h3 className="text-2xl font-semibold text-primary">{pot.name}</h3>
+                <p className="text-xl font-bold text-secondary mt-2">₹{pot.price}</p>
+                
+                <button
+                  onClick={(event) => handleAddToCart(event, pot)}
+                  className="mt-3 px-4 py-2 bg-secondary hover:bg-green-700 text-white rounded-lg"
+                >
+                  Add to Cart
+                </button>
+              </div>
             </Link>
           ))}
         </div>

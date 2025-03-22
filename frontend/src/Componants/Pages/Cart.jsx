@@ -41,7 +41,7 @@ const Cart = () => {
 
       if (response.status === 200) {
         dispatch(removeFromCartRedux(id)); 
-        alert("Failed to remove item.");
+        alert("Successfully remove item.");
       }
     } catch (error) {
       console.error("Error removing item:", error);
