@@ -24,8 +24,8 @@ const Herbs = () => {
   }, []);
 
   const handleAddToCart = async (event, herb) => {
-    event.stopPropagation(); // ✅ Prevents clicking the card
-    event.preventDefault(); // ✅ Prevents unwanted navigation
+    event.stopPropagation(); 
+    event.preventDefault(); 
 
     const storedUser = JSON.parse(localStorage.getItem("user")) || {};
     const userId = user?._id || storedUser?._id;
@@ -52,13 +52,13 @@ const Herbs = () => {
 
       if (response.status === 200) {
         dispatch(addToCartRedux({ ...herb, quantity: 1 }));
-        alert("✅ Added to cart!");
+        alert("Added to cart!");
       } else {
-        alert("❌ Failed to add to cart.");
+        alert(" Failed to add to cart.");
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      alert("❌ Error adding to cart.");
+      alert(" Error adding to cart.");
     }
   };
 
@@ -87,7 +87,6 @@ const Herbs = () => {
               <h3 className="text-2xl font-semibold text-primary">{herb.name}</h3>
               <p className="text-xl font-bold text-secondary mt-2">₹{herb.price}</p>
               
-              {/* ✅ Add to Cart button - No redirection */}
               <button
                 onClick={(event) => handleAddToCart(event, herb)}
                 className="mt-3 px-4 py-2 bg-secondary hover:bg-green-700 text-white rounded-lg"

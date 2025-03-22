@@ -24,8 +24,8 @@ const OutdoorPlants = () => {
   }, []);
 
   const handleAddToCart = async (event, plant) => {
-    event.stopPropagation(); // ✅ Prevents unwanted navigation
-    event.preventDefault(); // ✅ Stops any default behavior
+    event.stopPropagation(); 
+    event.preventDefault(); 
 
     const storedUser = JSON.parse(localStorage.getItem("user")) || {};
     const userId = user?._id || storedUser?._id;
@@ -44,13 +44,13 @@ const OutdoorPlants = () => {
 
       if (response.status === 200) {
         dispatch(addToCartRedux({ ...plant, quantity: 1 }));
-        alert("✅ Added to cart!");
+        alert(" Added to cart!");
       } else {
-        alert("❌ Failed to add to cart.");
+        alert(" Failed to add to cart.");
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      alert("❌ Error adding to cart.");
+      alert(" Error adding to cart.");
     }
   };
 

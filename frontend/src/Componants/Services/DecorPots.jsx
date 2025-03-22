@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCartRedux } from "../../Redux/cartSlice"; // ✅ Correct path
-import { useNavigate } from "react-router-dom";
+import { addToCartRedux } from "../../Redux/cartSlice"; 
 import { Link } from 'react-router-dom';
 
 const DecorPots = () => {
@@ -24,10 +23,9 @@ const DecorPots = () => {
   }, []);
 
   const handleAddToCart = async (event, pot) => {
-    event.stopPropagation(); // ✅ Prevents card click from triggering
-
-    const storedUser = JSON.parse(localStorage.getItem("user")) || {}; // ✅ Fetch from localStorage
-    const userId = user?._id || storedUser?._id; // ✅ Get userId
+    event.stopPropagation(); 
+    const storedUser = JSON.parse(localStorage.getItem("user")) || {}; 
+    const userId = user?._id || storedUser?._id; 
 
     if (!userId) {
       navigate("/login");
@@ -50,12 +48,12 @@ const DecorPots = () => {
 
       if (response.status === 200) {
         dispatch(addToCartRedux({ ...pot, quantity: 1 }));
-        alert("✅ Added to cart!");
+        alert("Added to cart!");
       } else {
-        alert("❌ Failed to add to cart.");
+        alert(" Failed to add to cart.");
       }
     } catch (error) {
-      alert("❌ Error adding to cart.");
+      alert(" Error adding to cart.");
     }
   };
 
@@ -74,7 +72,6 @@ const DecorPots = () => {
             <Link to={`/product/${pot._id}`} key={pot._id}>
             <div
               key={pot._id}
-              // onClick={() => navigate("/cart")} // ✅ Clicking the card navigates to cart
               className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition p-6 flex flex-col items-center text-center cursor-pointer"
             >
               <img
@@ -85,7 +82,6 @@ const DecorPots = () => {
               <h3 className="text-2xl font-semibold text-primary">{pot.name}</h3>
               <p className="text-xl font-bold text-secondary mt-2">₹{pot.price}</p>
               
-              {/* ✅ Add to Cart button - Stops event propagation */}
               <button
                 onClick={(event) => handleAddToCart(event, pot)}
                 className="mt-3 px-4 py-2  bg-secondary hover:bg-green-700 text-white rounded-lg "

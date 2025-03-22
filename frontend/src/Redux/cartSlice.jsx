@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  items: [], // ✅ Store cart items
+  items: [], 
 };
 
 const cartSlice = createSlice({
@@ -9,14 +9,14 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     setCartItems: (state, action) => {
-      state.items = action.payload; // ✅ Sync cart from MongoDB
+      state.items = action.payload; 
     },
     addToCartRedux: (state, action) => {
       const existingItem = state.items.find(item => item._id === action.payload._id);
       if (existingItem) {
-        existingItem.quantity += 1; // ✅ Increase quantity if item exists
+        existingItem.quantity += 1;
       } else {
-        state.items.push(action.payload); // ✅ Add new item
+        state.items.push(action.payload); 
       }
     },
     removeFromCartRedux: (state, action) => {

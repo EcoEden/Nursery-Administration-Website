@@ -50,12 +50,12 @@ const GardeningEquipment = () => {
 
       if (response.status === 200) {
         dispatch(addToCartRedux({ ...item, quantity: 1 }));
-        alert("✅ Added to cart!");
+        alert("Added to cart!");
       } else {
-        alert("❌ Failed to add to cart.");
+        alert("Failed to add to cart.");
       }
     } catch (error) {
-      alert("❌ Error adding to cart.");
+      alert(" Error adding to cart.");
     }
   };
 

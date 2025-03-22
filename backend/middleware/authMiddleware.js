@@ -1,38 +1,30 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
 
-const authMiddleware = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
+const authMiddleware = (req, res, next) => {
+    try {
+        const token = req.header("Authorization")?.replace("Bearer ", "");
+    
+        if (!token) {
+          return res.status(401).json({ message: "Access Denied. No token provided." });
+        }
+    
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.id);
+    
+        if (!user) {
+          return res.status(404).json({ message: "User not found." });
+        }
+    
+        if (user.role !== "admin") {
+          return res.status(403).json({ message: "Access Denied. Only admins can perform this action." });
+        }
+    
+        req.admin = user; // Store admin details in `req.admin`
+        next();
+      } catch (error) {
+        res.status(401).json({ message: "Invalid or expired token." });
+      }
+    };
 
-  console.log("🟢 Incoming Authorization Header:", authHeader); // Debugging
-  console.log("🛠️ JWT_SECRET in Backend:", process.env.JWT_SECRET);
-
-
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    console.log("❌ No token or incorrect format");
-    return res.status(401).json({ message: "Unauthorized: No token provided" });
-  }
-
-  const token = authHeader.split(" ")[1];
-  console.log("🟡 Extracted Token:", token); // Debugging
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("🔵 Decoded Token:", decoded); // Debugging
-
-
-    req.user = await User.findById(decoded.id).select("-password");
-    if (!req.user) {
-      console.log("❌ User not found in database");
-      return res.status(401).json({ message: "Unauthorized: User not found" });
-    }
-
-    console.log("✅ User authenticated:", req.user.email);
-    next();
-  } catch (error) {
-    console.error("🔴 JWT verification failed:", error.message);
-    return res.status(401).json({ message: "Not authorized, token failed" });
-  }
-};
 
 module.exports = authMiddleware;
