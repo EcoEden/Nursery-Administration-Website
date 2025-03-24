@@ -83,6 +83,7 @@ const UserProfile = () => {
             {userData?.firstName} {userData?.lastName}
           </h1>
           <p className="text-gray-600 mb-4">{userData?.email}</p>
+          <p className="text-gray-600 mb-4">{userData?.location}</p>
 
           <button
             onClick={handleLogout}

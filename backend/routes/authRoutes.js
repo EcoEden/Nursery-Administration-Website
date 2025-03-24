@@ -30,24 +30,31 @@ router.post("/signup", async (req, res) => {
 // Login Route
 router.post("/login", async (req, res) => {
   const { email, password, role } = req.body;
-  try {
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "User not found. Please sign up!" });
 
-    if ((user.role || "").toLowerCase() !== (role || "").toLowerCase()) {
-      return res.status(400).json({ message: "Invalid role selected!" });
+  try {
+    // Find user by email and role
+    const user = await User.findOne({ email, role });
+
+    if (!user) {
+      return res.status(400).json({ message: "User with this email and role not found. Please sign up!" });
     }
 
+    // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Incorrect password!" });
+    if (!isMatch) {
+      return res.status(400).json({ message: "Incorrect password!" });
+    }
 
+    // Generate JWT token
     const token = generateToken(user._id);
     const { password: _, ...userWithoutPassword } = user.toObject();
 
     res.json({ message: "Login successful", token, user: userWithoutPassword });
+
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }
 });
+
 
 module.exports = router;

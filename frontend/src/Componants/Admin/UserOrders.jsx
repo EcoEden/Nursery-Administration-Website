@@ -24,7 +24,8 @@ const UserOrders = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        setOrders(response.data);
+        // Ensure data is an array and filter out null productId values
+        setOrders(Array.isArray(response.data) ? response.data.filter(item => item.productId) : []);
       } catch (error) {
         console.error("Error fetching user orders:", error);
         toast.error("Failed to load user orders.");
@@ -82,12 +83,20 @@ const UserOrders = () => {
                 {orders.map((item) => (
                   <tr key={item._id} className="border-b hover:bg-gray-50">
                     <td className="p-4 flex items-center space-x-4">
-                      <img src={item.productId.image} alt={item.productId.name} className="w-16 h-16 rounded-lg border" />
-                      <span className="text-gray-800 font-medium">{item.productId.name}</span>
+                      <img
+                        src={item.productId?.image || "/placeholder-image.jpg"}
+                        alt={item.productId?.name || "Product Image"}
+                        className="w-16 h-16 rounded-lg border"
+                      />
+                      <span className="text-gray-800 font-medium">{item.productId?.name || "Unknown Product"}</span>
                     </td>
-                    <td className="p-4 text-gray-800 font-medium">${item.productId.price}</td>
-                    <td className="p-4 text-gray-800">{item.quantity}</td>
-                    <td className="p-4 text-gray-800 font-semibold">${(item.productId.price * item.quantity).toFixed(2)}</td>
+                    <td className="p-4 text-gray-800 font-medium">
+                      ${item.productId?.price ? item.productId.price.toFixed(2) : "0.00"}
+                    </td>
+                    <td className="p-4 text-gray-800">{item.quantity || 0}</td>
+                    <td className="p-4 text-gray-800 font-semibold">
+                      ${item.productId?.price ? (item.productId.price * (item.quantity || 0)).toFixed(2) : "0.00"}
+                    </td>
                     <td className="p-4">
                       <button
                         onClick={() => handleRemove(item._id)}

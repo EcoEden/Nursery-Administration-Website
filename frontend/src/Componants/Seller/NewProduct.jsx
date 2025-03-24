@@ -104,7 +104,11 @@ const NewProduct = () => {
             >
               <option value="">Select Category</option>
               <option>Indoor Plant</option>
+              <option>Herbs</option>
+              <option>Decor Pots</option>
+              <option>Gardening Equipment</option>
               <option>Outdoor Plant</option>
+              <option>Plant Care Products</option>
             </select>
           </div>
 

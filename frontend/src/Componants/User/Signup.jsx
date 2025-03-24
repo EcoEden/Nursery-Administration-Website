@@ -19,7 +19,8 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
     role: "user",
-    image: ""
+    image: "",
+    location:"",
   });
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
@@ -115,6 +116,9 @@ const Signup = () => {
             <option value="seller">Seller</option>
             <option value="admin">Admin</option>
           </select>
+
+          <input type="location" name='location' placeholder='Enter location' className='rounded-full p-2 border' value={data.location} onChange={handleOnChange} />
+          {errors.location && <p className='text-red-500 text-sm'>{errors.location}</p>}
           
           <div className="flex relative">
             <input type={showPassword ? "text" : "password"} name='password' placeholder='Enter Password' className='rounded-full w-full p-2 border' value={data.password} onChange={handleOnChange} />

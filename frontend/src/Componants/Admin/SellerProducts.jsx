@@ -88,7 +88,7 @@ useEffect(() => {
                     </td>
                     <td className="p-4 text-gray-800 font-medium">{product.name}</td>
                     <td className="p-4 text-gray-600">{product.category}</td>
-                    <td className="p-4 text-gray-800 font-semibold">${product.price}</td>
+                    <td className="p-4 text-gray-800 font-semibold">₹{product.price}</td>
                     <td className="p-4 flex space-x-2">
                     
                       <button

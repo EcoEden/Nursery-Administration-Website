@@ -53,7 +53,9 @@ const Navbar = () => {
   // Define Role-Based Navigation
   let NavMenu = [];
   if (userRole === 'admin') {
-    NavMenu = [{ id: 1, title: 'Admin Dashboard', link: '/admin-dashboard' }];
+    NavMenu = [{ id: 1, title: 'Admin Dashboard', link: '/admin-dashboard || /' },
+    ];
+    
   } else if (userRole === 'seller') {
     NavMenu = [{ id: 1, title: 'Seller Dashboard', link: '/seller-dashboard' }];
   } else {
