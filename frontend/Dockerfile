@@ -17,7 +17,8 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy built files from React app
-COPY --from=build ./ /usr/share/nginx/html
+COPY --from=build /frontend/build/ /usr/share/nginx/html/
+
 
 # Copy custom nginx config if you have one (optional)
 # COPY nginx.conf /etc/nginx/nginx.conf
