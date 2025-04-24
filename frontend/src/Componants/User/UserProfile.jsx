@@ -67,7 +67,7 @@ const UserProfile = () => {
   }
 
   return (
-    <section className="min-h-50vh bg-green-50 py-16 px-6 md:px-20 select-none cursor-default">
+    <section className="min-h-50vh  bg-[url('/main_page_img/aboutpage.jpg')] bg-cover bg-center py-16 px-6 md:px-20 select-none cursor-default">
       <div className="max-w-md mx-auto mt-12 p-7 bg-white h-20xl rounded-lg shadow-md">
         <div className="flex flex-col items-center">
           <img

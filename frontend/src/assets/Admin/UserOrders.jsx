@@ -58,7 +58,7 @@ const UserOrders = () => {
   }
 
   return (
-    <section className="min-h-[50vh] bg-green-50 flex justify-center items-center py-10 px-6 md:px-20">
+    <section className="min-h-[60vh] bg-green-50 flex justify-center items-center py-10 px-6 md:px-20">
       <div className="max-w-6xl w-full bg-white p-6 rounded-xl shadow-md">
         <div className="flex items-center justify-center mb-6">
           <img src="/main_page_img/Orders.png" alt="Orders" className="w-12 h-12 mr-3" />

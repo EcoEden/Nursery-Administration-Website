@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setCartItems, removeFromCartRedux } from "../../Redux/cartSlice";
-import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai"; 
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -40,8 +40,8 @@ const Cart = () => {
       });
 
       if (response.status === 200) {
-        dispatch(removeFromCartRedux(id)); 
-        alert("Successfully remove item.");
+        dispatch(removeFromCartRedux(id));
+        alert("Successfully removed item.");
       }
     } catch (error) {
       console.error("Error removing item:", error);
@@ -50,7 +50,7 @@ const Cart = () => {
   };
 
   const updateQuantity = async (id, newQuantity) => {
-    if (newQuantity < 1) return; // Prevent negative quantity
+    if (newQuantity < 1) return;
 
     try {
       const response = await axios.put(
@@ -60,16 +60,37 @@ const Cart = () => {
       );
 
       if (response.status === 200) {
-        fetchCart(); // Refresh cart after update
+        fetchCart();
       }
     } catch (error) {
       console.error("Error updating quantity:", error);
-      alert(" Error updating quantity.");
+      alert("Error updating quantity.");
+    }
+  };
+
+  const handleBuyNow = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/order",
+        { cartItems },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.status === 200) {
+        alert(" Order placed successfully!");
+        dispatch(setCartItems([]));
+        navigate("/orders");
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      alert("Failed to place the order.");
     }
   };
 
   return (
-    <div className="container min-h-[50vh] bg-green-50 mx-auto p-4">
+    <div className="container min-h-[55vh] bg-green-50 mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">🛒 Your Cart</h1>
 
       {cartItems.length === 0 ? (
@@ -95,7 +116,7 @@ const Cart = () => {
                 </p>
               </div>
 
-              {/* Quantity Controls (Positioned Top Right) */}
+              {/* Quantity Controls */}
               <div className="absolute top-3 mb-4 pb-5 right-6 flex items-center">
                 <button
                   className="p-2 bg-gray-200 rounded-full hover:bg-gray-300"
@@ -123,6 +144,18 @@ const Cart = () => {
               </button>
             </div>
           ))}
+
+          {/* Buy Now Button */}
+          {cartItems.length > 0 && (
+            <div className="mt-6 text-right">
+              <button
+                className=" bg-secondary hover:bg-green-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition"
+                onClick={handleBuyNow}
+              >
+                Buy Now
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

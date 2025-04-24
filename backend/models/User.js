@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true}, // Unique email
     password: { type: String, required: true },
     image: String,
-    location: { type: String, required: true },
+    location: { type: String },
     role: { type: String, enum: ["user", "seller", "admin"], default: "user" }, // User role
   },
   { timestamps: true }
