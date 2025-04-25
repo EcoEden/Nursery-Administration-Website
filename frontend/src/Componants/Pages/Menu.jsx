@@ -12,6 +12,7 @@ const Menu = () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/plants`); // Update with your backend URL
         setPlants(response.data);
+        console.log(`${import.meta.env.VITE_API_URL}`)
       } catch (error) {
         console.error('Error fetching plants:', error);
       } finally {
