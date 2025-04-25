@@ -14,8 +14,8 @@ const GardeningEquipment = () => {
   useEffect(() => {
     const fetchEquipment = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/products?category=Gardening Equipment`);
-        setEquipment(response.data);
+        const response = await axios.get(`http://13.203.120.9:5000/products?category=Gardening Equipment`);
+        setEquipment(response.data)
       } catch (error) {
         console.error("Error fetching equipment:", error);
       }
