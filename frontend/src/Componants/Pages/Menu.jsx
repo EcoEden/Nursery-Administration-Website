@@ -10,7 +10,7 @@ const Menu = () => {
   useEffect(() => {
     const fetchPlants = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/products/plants'); // Update with your backend URL
+        const response = await axios.get('${import.meta.env.VITE_API_URL}/products/plants'); // Update with your backend URL
         setPlants(response.data);
       } catch (error) {
         console.error('Error fetching plants:', error);
