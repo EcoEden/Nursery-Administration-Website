@@ -8,7 +8,7 @@ const SearchResults = () => {
 
   useEffect(() => {
     if (searchQuery) {
-      fetch(`http://13.201.26.192:5000/search/${encodeURIComponent(searchQuery)}`)
+      fetch(`${import.meta.env.VITE_API_URL}/search/${encodeURIComponent(searchQuery)}`)
         .then((res) => res.json())
         .then((data) => {
           if (Array.isArray(data)) {

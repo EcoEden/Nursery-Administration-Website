@@ -16,7 +16,7 @@ const SellerProducts = () => {
           return;
         }
 
-        const response = await axios.get("http://13.201.26.192:5000/seller-products", {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/seller-products`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -39,7 +39,7 @@ const SellerProducts = () => {
         return;
       }
 
-      await axios.delete(`http://13.201.26.192:5000/seller-products/${productId}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/seller-products/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

@@ -14,7 +14,7 @@ const IndoorPlants = () => {
   useEffect(() => {
     const fetchIndoorPlants = async () => {
       try {
-        const response = await axios.get("http://13.201.26.192:5000/products?category=Indoor Plant");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/products?category=Indoor Plant`);
         setIndoorPlants(response.data);
       } catch (error) {
         console.error("Error fetching indoor plants:", error);
@@ -37,7 +37,7 @@ const IndoorPlants = () => {
 
     try {
       const response = await axios.post(
-        "http://13.201.26.192:5000/cart/add",
+        `${import.meta.env.VITE_API_URL}/cart/add`,
         { userId, productId: plant._id, quantity: 1 },
         { headers: { Authorization: `Bearer ${user.token || storedUser.token}` } }
       );

@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     const { email, password, role } = data;
   
-    const response = await fetch("http://13.201.26.192:5000/login", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password, role }),

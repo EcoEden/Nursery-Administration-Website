@@ -13,7 +13,7 @@ const DecorPots = () => {
   useEffect(() => {
     const fetchDecorPots = async () => {
       try {
-        const response = await axios.get("http://13.201.26.192:5000/products?category=Decor Pots");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/products?category=Decor Pots`);
         setDecorPots(response.data);
       } catch (error) {
         console.error("Error fetching decor pots:", error);
@@ -34,7 +34,7 @@ const DecorPots = () => {
 
     try {
       const response = await axios.post(
-        "http://13.201.26.192:5000/cart/add",
+        `${import.meta.env.VITE_API_URL}/cart/add`,
         {
           userId,
           productId: pot._id,

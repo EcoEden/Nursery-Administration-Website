@@ -20,7 +20,7 @@ useEffect(() => {
         return;
       }
       try {
-        const response = await axios.get(`http://13.201.26.192:5000/admin/sellers/${sellerId}/products`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/admin/sellers/${sellerId}/products`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProducts(response.data);
@@ -39,7 +39,7 @@ useEffect(() => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
 
     try {
-      await axios.delete(`http://13.201.26.192:5000/admin/products/${productId}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/admin/products/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));

@@ -28,7 +28,7 @@ const EditProduct = () => {
           return;
         }
 
-        const response = await axios.get(`http://13.201.26.192:5000/products/${id}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -69,7 +69,7 @@ const EditProduct = () => {
   
       console.log("Submitting data:", JSON.stringify(data, null, 2));
   
-      const response = await axios.put( `http://localhost:5000/edit-product/${id}`,
+      const response = await axios.put( `${import.meta.env.VITE_API_URL}/edit-product/${id}`,
   data,
   {
     headers: { 

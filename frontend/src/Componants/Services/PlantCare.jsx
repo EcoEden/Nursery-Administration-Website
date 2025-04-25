@@ -14,7 +14,7 @@ const PlantCareProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://13.201.26.192:5000/products?category=Plant Care Product");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/products?category=Plant Care Product`);
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching plant care products:", error);

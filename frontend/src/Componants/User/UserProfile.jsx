@@ -30,7 +30,7 @@ const UserProfile = () => {
     }
   
     try {
-      const response = await fetch(`http://13.201.26.192:5000/users/${userId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

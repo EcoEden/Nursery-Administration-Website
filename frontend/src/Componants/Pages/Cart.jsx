@@ -71,7 +71,7 @@ const Cart = () => {
   const handleBuyNow = async () => {
     try {
       const response = await axios.post(
-        "http://13.201.26.192:5000/order",
+        `${import.meta.env.VITE_API_URL}/order`,
         { cartItems },
         {
           headers: { Authorization: `Bearer ${token}` },

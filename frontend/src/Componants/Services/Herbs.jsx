@@ -14,7 +14,7 @@ const Herbs = () => {
   useEffect(() => {
     const fetchHerbs = async () => {
       try {
-        const response = await axios.get("http://13.201.26.192:5000/products?category=Herbs");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/products?category=Herbs`);
         setHerbs(response.data);
       } catch (error) {
         console.error("Error fetching herbs:", error);
