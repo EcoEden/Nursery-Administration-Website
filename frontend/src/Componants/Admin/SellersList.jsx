@@ -19,7 +19,7 @@ const SellersList = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:5000/admin/sellers", {
+        const response = await axios.get("http://13.201.26.192:5000/admin/sellers", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -45,7 +45,7 @@ const SellersList = () => {
         return;
       }
 
-      await axios.delete(`http://localhost:5000/admin/sellers/${sellerId}`, {
+      await axios.delete(`http://13.201.26.192:5000/admin/sellers/${sellerId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

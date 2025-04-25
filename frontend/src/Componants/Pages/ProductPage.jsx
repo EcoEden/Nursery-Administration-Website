@@ -14,7 +14,7 @@ const ProductPage = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/products/${productId}`);
+                const res = await axios.get(`http://13.201.26.192:5000/products/${productId}`);
                 setProduct(res.data);
             } catch (err) {
                 console.error("Error fetching product:", err);
@@ -36,7 +36,7 @@ const ProductPage = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:5000/cart/add",
+                "http://13.201.26.192:5000/cart/add",
                 { userId, productId, quantity: 1 },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

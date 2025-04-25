@@ -14,7 +14,7 @@ const Herbs = () => {
   useEffect(() => {
     const fetchHerbs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/products?category=Herbs");
+        const response = await axios.get("http://13.201.26.192:5000/products?category=Herbs");
         setHerbs(response.data);
       } catch (error) {
         console.error("Error fetching herbs:", error);
@@ -39,7 +39,7 @@ const Herbs = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/cart/add",
+        "http://13.201.26.192:5000/cart/add",
         {
           userId,
           productId: herb._id,

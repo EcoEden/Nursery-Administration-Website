@@ -16,7 +16,7 @@ const UsersList = () => {
                     console.error("No token found. Please log in.");
                     return;
                 }
-                const response = await axios.get("http://localhost:5000/admin/users", {
+                const response = await axios.get("http://13.201.26.192:5000/admin/users", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setUsers(response.data);
@@ -39,7 +39,7 @@ const UsersList = () => {
                 toast.error("Unauthorized. Please log in.");
                 return;
             }
-            await axios.delete(`http://localhost:5000/admin/users/${userId}`, {
+            await axios.delete(`http://13.201.26.192:5000/admin/users/${userId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setUsers(users.filter((user) => user._id !== userId));

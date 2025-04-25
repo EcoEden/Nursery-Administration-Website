@@ -14,7 +14,7 @@ const PlantCareProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/products?category=Plant Care Product");
+        const response = await axios.get("http://13.201.26.192:5000/products?category=Plant Care Product");
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching plant care products:", error);
@@ -37,7 +37,7 @@ const PlantCareProducts = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/cart/add",
+        "http://13.201.26.192:5000/cart/add",
         { userId, productId: product._id, quantity: 1 },
         { headers: { Authorization: `Bearer ${user.token || storedUser.token}` } }
       );

@@ -71,7 +71,7 @@ const Cart = () => {
   const handleBuyNow = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/order",
+        "http://13.201.26.192:5000/order",
         { cartItems },
         {
           headers: { Authorization: `Bearer ${token}` },

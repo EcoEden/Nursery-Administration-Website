@@ -28,7 +28,7 @@ const Signup = () => {
     location: "",
   });
 
-  const baseUrl = import.meta.env.REACT_APP_API_URL || "http://localhost:5000";
+  const baseUrl = import.meta.env.REACT_APP_API_URL || "http://13.201.26.192:5000";
 
   const validate = () => {
     let newErrors = {};

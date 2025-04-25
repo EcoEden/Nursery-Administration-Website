@@ -11,7 +11,7 @@ const CategoryPage = ({ title, endpoint }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/${endpoint}`);
+        const response = await axios.get(`http://13.201.26.192:5000/${endpoint}`);
         setProducts(response.data);
       } catch (error) {
         console.error(`Error fetching ${title}:`, error);
@@ -30,7 +30,7 @@ const CategoryPage = ({ title, endpoint }) => {
     }
 
     try {
-      await axios.post("http://localhost:5000/cart", { productId: product._id, userId: user._id });
+      await axios.post("http://13.201.26.192:5000/cart", { productId: product._id, userId: user._id });
       alert(`${product.name} added to cart successfully!`);
     } catch (error) {
       console.error("Error adding to cart:", error);

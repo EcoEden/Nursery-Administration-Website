@@ -20,7 +20,7 @@ const UserOrders = () => {
           return;
         }
 
-        const response = await axios.get(`http://localhost:5000/admin/users/${userId}/cart`, {
+        const response = await axios.get(`http://13.201.26.192:5000/admin/users/${userId}/cart`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -42,7 +42,7 @@ const UserOrders = () => {
     if (!window.confirm("Are you sure you want to remove this item?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/admin/users/${userId}/cart/${cartItemId}`, {
+      await axios.delete(`http://13.201.26.192:5000/admin/users/${userId}/cart/${cartItemId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setOrders((prevOrders) => prevOrders.filter((item) => item._id !== cartItemId));

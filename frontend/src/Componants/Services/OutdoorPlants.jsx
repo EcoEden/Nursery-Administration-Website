@@ -14,7 +14,7 @@ const OutdoorPlants = () => {
   useEffect(() => {
     const fetchOutdoorPlants = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/products?category=Outdoor Plant");
+        const response = await axios.get("http://13.201.26.192:5000/products?category=Outdoor Plant");
         setOutdoorPlants(response.data);
       } catch (error) {
         console.error("Error fetching outdoor plants:", error);
@@ -37,7 +37,7 @@ const OutdoorPlants = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/cart/add",
+        "http://13.201.26.192:5000/cart/add",
         { userId, productId: plant._id, quantity: 1 },
         { headers: { Authorization: `Bearer ${user.token || storedUser.token}` } }
       );

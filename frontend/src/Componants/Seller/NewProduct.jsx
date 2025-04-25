@@ -43,7 +43,7 @@ const NewProduct = () => {
     const userRole = storedUser?.role || ""; // Get user role
 
     try {
-      const response = await fetch("http://localhost:5000/new-product", {
+      const response = await fetch("http://13.201.26.192:5000/new-product", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

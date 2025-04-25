@@ -28,7 +28,7 @@ const EditProduct = () => {
           return;
         }
 
-        const response = await axios.get(`http://localhost:5000/products/${id}`, {
+        const response = await axios.get(`http://13.201.26.192:5000/products/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
