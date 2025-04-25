@@ -10,10 +10,12 @@ const DecorPots = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const baseurl=import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchDecorPots = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/products?category=Decor Pots`);
+        const response = await axios.get(`${baseurl}/products?category=Decor Pots`);
         setDecorPots(response.data);
       } catch (error) {
         console.error("Error fetching decor pots:", error);

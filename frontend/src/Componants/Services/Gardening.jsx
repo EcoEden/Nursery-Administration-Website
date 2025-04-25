@@ -37,7 +37,7 @@ const GardeningEquipment = () => {
 
     try {
       const response = await axios.post(
-        "${import.meta.env.VITE_API_URL}/cart/add",
+        `${import.meta.env.VITE_API_URL}/cart/add`,
         {
           userId,
           productId: item._id,

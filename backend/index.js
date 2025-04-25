@@ -14,6 +14,7 @@ require('dotenv').config();
 const app = express();
 app.use(cors({
     origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 
 app.use(bodyParser.json());
@@ -32,4 +33,4 @@ app.use("/products", productRoutes);
 
 
 //  Start the Server
-app.listen(PORT, () => console.log(` Server running on PORT ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(` Server running on PORT ${PORT}`));
