@@ -8,9 +8,8 @@ const SellerProduct = () => {
   const { sellerId } = useParams(); // Get sellerId from URL
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-//   const token = useSelector((state) => state.auth.token); // Use Redux token
 
-useEffect(() => {
+  useEffect(() => {
     const fetchProducts = async () => {
       const token = localStorage.getItem("token");
       console.log("Fetching products for seller:", sellerId); // Debugging log
@@ -63,16 +62,16 @@ useEffect(() => {
       <div className="max-w-7xl mx-auto bg-white p-6 rounded-xl shadow-md">
         <div className="flex items-center justify-center mb-6 text-gray-700">
           <img src="../../main_page_img/Product.png" alt="Products" className="w-10 h-10 mr-3" />
-          <h1 className="text-4xl font-bold text-secondary">Seller's Products</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary">Seller's Products</h1>
         </div>
 
         {products.length === 0 ? (
           <p className="text-center text-gray-600 text-lg">No products added by this seller yet.</p>
         ) : (
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto sm:overflow-x-hidden">
             <table className="w-full border-collapse bg-white shadow-lg rounded-lg">
               <thead>
-                <tr className="bg-gray-200 text-gray-700 text-lg">
+                <tr className="bg-gray-200 text-gray-700 text-xs sm:text-sm md:text-lg">
                   <th className="p-4 text-left">Image</th>
                   <th className="p-4 text-left">Product Name</th>
                   <th className="p-4 text-left">Category</th>
@@ -84,16 +83,15 @@ useEffect(() => {
                 {products.map((product) => (
                   <tr key={product._id} className="border-b hover:bg-gray-50">
                     <td className="p-4">
-                      <img src={product.image} alt={product.name} className="w-16 h-16 rounded-lg border" />
+                      <img src={product.image} alt={product.name} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-lg border" />
                     </td>
-                    <td className="p-4 text-gray-800 font-medium">{product.name}</td>
-                    <td className="p-4 text-gray-600">{product.category}</td>
-                    <td className="p-4 text-gray-800 font-semibold">₹{product.price}</td>
+                    <td className="p-4 text-gray-800 font-medium text-xs sm:text-sm md:text-base">{product.name}</td>
+                    <td className="p-4 text-gray-600 text-xs sm:text-sm md:text-base">{product.category}</td>
+                    <td className="p-4 text-gray-800 font-semibold text-xs sm:text-sm md:text-base">₹{product.price}</td>
                     <td className="p-4 flex space-x-2">
-                    
                       <button
                         onClick={() => handleDelete(product._id)}
-                        className="bg-red-500 text-white px-3 py-2 mt-4 rounded-lg text-sm hover:bg-green-700"
+                        className="bg-red-500 text-white px-3 py-2 mt-4 rounded-lg text-xs sm:text-sm md:text-base hover:bg-green-700"
                       >
                         Delete
                       </button>

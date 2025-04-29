@@ -63,6 +63,7 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Footer Copyright */}
         <div className="text-center mt-10 text-sm text-gray-500">
           © {new Date().getFullYear()} EcoEden. All rights reserved.
         </div>

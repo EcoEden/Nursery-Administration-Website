@@ -1,0 +1,6 @@
+projectKey=Nursery
+serverUrl=http://13.201.125.149:9000
+serverVersion=9.9.1.69595
+dashboardUrl=http://13.201.125.149:9000/dashboard?id=Nursery
+ceTaskId=AZZ8JR4Aju7lgO6fVauq
+ceTaskUrl=http://13.201.125.149:9000/api/ce/task?id=AZZ8JR4Aju7lgO6fVauq

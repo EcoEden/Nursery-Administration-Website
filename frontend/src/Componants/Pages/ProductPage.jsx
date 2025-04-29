@@ -57,18 +57,18 @@ const ProductPage = () => {
         return <div className="text-center min-h-screen text-4xl bg-green-50 mt-10">L o a d i n g . . .</div>;
 
     return (
-        <section className="min-h-70vh relative bg-green-50 py-5 px-6 md:px-20 select-none cursor-default">
-            <div className="max-w-5xl mx-auto p-6 pt-12 select-none cursor-default bg-green-50">
-                <div className="grid md:grid-cols-2 gap-10">
-                    <div className="w-full h-96">
+        <section className="min-h-[70vh] relative bg-green-50 py-5 px-6 md:px-20 select-none cursor-default">
+            <div className="max-w-5xl mx-auto p-6 pt-12 bg-green-50">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div className="w-full h-[250px] md:h-[400px]">
                         <img
                             src={product.image}
                             alt={product.name}
                             className="w-full h-full object-cover rounded-2xl shadow-lg"
                         />
                     </div>
-                    <div className="mt-6">
-                        <h1 className="text-4xl font-bold mb-5">{product.name}</h1>
+                    <div className="mt-6 md:mt-0">
+                        <h1 className="text-3xl sm:text-4xl font-bold mb-5">{product.name}</h1>
                         <p className="text-lg text-gray-700 mb-5">{product.description}</p>
                         <p className="text-xl font-semibold text-secondary mb-3">
                             ₹{product.price}.00/-

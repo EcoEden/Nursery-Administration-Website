@@ -87,31 +87,31 @@ const EditProduct = () => {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className="min-h-screen bg-green-50 p-6">
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-10">
-        <h2 className="text-4xl font-bold text-secondary text-center mb-8">Edit Product</h2>
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-8 sm:p-10">
+        <h2 className="text-3xl sm:text-4xl font-bold text-secondary text-center mb-6 sm:mb-8">Edit Product</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-xl text-gray-700 mb-2">Product Name</label>
+            <label className="block text-lg sm:text-xl text-gray-700 mb-2">Product Name</label>
             <input
               type="text"
               name="name"
               value={data.name}
               onChange={handleOnChange}
-              className="w-full p-4 border border-gray-300 rounded-lg text-lg"
+              className="w-full p-4 border border-gray-300 rounded-lg text-lg sm:text-xl"
               required
             />
           </div>
 
           <div>
-            <label className="block text-xl text-gray-700 mb-2">Category</label>
+            <label className="block text-lg sm:text-xl text-gray-700 mb-2">Category</label>
             <select
               name="category"
               value={data.category}
               onChange={handleOnChange}
-              className="w-full p-4 border border-gray-300 rounded-lg text-lg"
+              className="w-full p-4 border border-gray-300 rounded-lg text-lg sm:text-xl"
               required
             >
               <option value="">Select Category</option>
@@ -121,8 +121,8 @@ const EditProduct = () => {
           </div>
 
           <div>
-            <label className="block text-xl text-gray-700 mb-2">Product Image</label>
-            <div className="h-60 w-full bg-slate-200 rounded-lg flex flex-col items-center justify-center relative">
+            <label className="block text-lg sm:text-xl text-gray-700 mb-2">Product Image</label>
+            <div className="h-48 sm:h-60 w-full bg-slate-200 rounded-lg flex flex-col items-center justify-center relative">
               {data.image ? (
                 <>
                   <img src={data.image} alt="Product" className="h-full rounded-lg" />
@@ -136,7 +136,7 @@ const EditProduct = () => {
                 </>
               ) : (
                 <>
-                  <span className="text-5xl text-gray-400">
+                  <span className="text-4xl sm:text-5xl text-gray-400">
                     <BsCloudUpload />
                   </span>
                   <label htmlFor="image" className="cursor-pointer mt-2 text-blue-500 underline">
@@ -156,32 +156,32 @@ const EditProduct = () => {
           </div>
 
           <div>
-            <label className="block text-xl text-gray-700 mb-2">Price</label>
+            <label className="block text-lg sm:text-xl text-gray-700 mb-2">Price</label>
             <input
               type="number"
               name="price"
               value={data.price}
               onChange={handleOnChange}
-              className="w-full p-4 border border-gray-300 rounded-lg text-lg"
+              className="w-full p-4 border border-gray-300 rounded-lg text-lg sm:text-xl"
               required
             />
           </div>
 
           <div>
-            <label className="block text-xl text-gray-700 mb-2">Description</label>
+            <label className="block text-lg sm:text-xl text-gray-700 mb-2">Description</label>
             <textarea
               name="description"
               value={data.description}
               onChange={handleOnChange}
               rows="5"
-              className="w-full p-4 border border-gray-300 rounded-lg text-lg resize-none"
+              className="w-full p-4 border border-gray-300 rounded-lg text-lg sm:text-xl resize-none"
               required
             ></textarea>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-secondary hover:bg-green-700 text-white py-4 rounded-lg text-xl font-semibold"
+            className="w-full bg-secondary hover:bg-green-700 text-white py-4 rounded-lg text-xl sm:text-2xl font-semibold"
             disabled={loading}
           >
             {loading ? "Updating..." : "Update Product"}

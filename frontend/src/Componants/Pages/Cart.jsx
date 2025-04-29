@@ -98,16 +98,16 @@ const Cart = () => {
       ) : (
         <div className="grid gap-4">
           {cartItems.map((item) => (
-            <div key={item._id} className="border p-4 flex items-center gap-4 relative">
+            <div key={item._id} className="border p-4 flex items-center gap-4 relative flex-col md:flex-row">
               {/* Product Image */}
               <img
                 src={item.productId?.image || "https://via.placeholder.com/100"}
                 alt={item.productId?.name || "Product"}
-                className="w-20 h-20 object-cover rounded-lg"
+                className="w-20 h-20 object-cover rounded-lg mb-4 md:mb-0"
               />
 
               {/* Product Details */}
-              <div className="flex-1">
+              <div className="flex-1 text-center md:text-left">
                 <h2 className="text-lg font-semibold">
                   {item.productId?.name || "Unknown Product"}
                 </h2>
@@ -117,7 +117,7 @@ const Cart = () => {
               </div>
 
               {/* Quantity Controls */}
-              <div className="absolute top-3 mb-4 pb-5 right-6 flex items-center">
+              <div className="right-6  m-0 flex items-center justify-center md:justify-start">
                 <button
                   className="p-2 bg-gray-200 rounded-full hover:bg-gray-300"
                   onClick={() => updateQuantity(item._id, item.quantity - 1)}
@@ -137,7 +137,7 @@ const Cart = () => {
 
               {/* Remove Button */}
               <button
-                className="mt-10 bg-secondary hover:bg-green-700 text-white px-6 py-2 rounded-lg text-lg font-medium transition"
+                className="mt-7 md:mt-0 bg-secondary hover:bg-green-700 text-white px-6 py-2 rounded-lg text-lg font-medium transition"
                 onClick={() => handleRemove(item._id)}
               >
                 Remove

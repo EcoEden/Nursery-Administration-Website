@@ -1,3 +1,5 @@
+// src/pages/UserProfile.jsx
+
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -15,46 +17,39 @@ const UserProfile = () => {
     if (token) {
       fetchUserProfile();
     } else {
-      navigate('/login'); // Redirect to login if token is missing
+      navigate('/login');
     }
-  }, [userId, token]);  
+  }, [userId, token]);
 
   const fetchUserProfile = async () => {
     const token = localStorage.getItem("token");
-    console.log("Sending Token:", token); // Debugging
-  
     if (!token) {
-      console.error(" No token found, redirecting to login...");
       navigate('/login');
       return;
     }
-  
+
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`, 
+          "Authorization": `Bearer ${token}`,
         },
       });
-  
+
       const data = await response.json();
-      console.log("Response Status:", response.status);
-      console.log(" Response Data:", data);
-  
+
       if (response.status === 401) {
-        console.error(" Unauthorized! Token may be expired. Logging out...");
         handleLogout();
       } else if (!response.ok) {
         throw new Error(data.message || "Failed to fetch user profile");
       }
-  
+
       setUserData(data);
     } catch (error) {
       console.error("Error fetching profile:", error);
     }
   };
-  
 
   const handleLogout = () => {
     dispatch(logout());
@@ -67,8 +62,8 @@ const UserProfile = () => {
   }
 
   return (
-    <section className="min-h-50vh  bg-[url('/main_page_img/aboutpage.jpg')] bg-cover bg-center py-16 px-6 md:px-20 select-none cursor-default">
-      <div className="max-w-md mx-auto mt-12 p-7 bg-white h-20xl rounded-lg shadow-md">
+    <section className="min-h-50vh bg-[url('/main_page_img/aboutpage.jpg')] bg-cover bg-center py-16 px-6 md:px-20 select-none cursor-default">
+      <div className="max-w-md mx-auto mt-12 p-7 bg-white rounded-lg shadow-md">
         <div className="flex flex-col items-center">
           <img
             src={userData?.image || defaultAvatar}
@@ -79,11 +74,9 @@ const UserProfile = () => {
               e.target.src = defaultAvatar;
             }}
           />
-          <h1 className="text-2xl font-bold mb-2">
-            {userData?.firstName} {userData?.lastName}
-          </h1>
-          <p className="text-gray-600 mb-4">{userData?.email}</p>
-          <p className="text-gray-600 mb-4">{userData?.location}</p>
+          <h1 className="text-2xl font-bold mb-2">{userData.firstName} {userData.lastName}</h1>
+          <p className="text-gray-600 mb-4">{userData.email}</p>
+          <p className="text-gray-600 mb-4">{userData.location}</p>
 
           <button
             onClick={handleLogout}

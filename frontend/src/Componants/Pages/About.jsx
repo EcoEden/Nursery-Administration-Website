@@ -7,7 +7,7 @@ const About = () => {
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+          <h1 className="text-3xl md:text-5xl font-bold text-primary mb-4">
             About <span className="text-secondary">EcoEden</span>
           </h1>
           <p className="text-gray-600 text-lg">
@@ -16,9 +16,9 @@ const About = () => {
         </div>
 
         {/* Content */}
-        <div className="flex flex-col md:flex-row items-center gap-10">
+        <div className="flex flex-col-reverse md:flex-row items-center gap-10">
           {/* Image */}
-          <div className="w-full  md:w-1/2">
+          <div className="w-full md:w-1/2">
             <img
               src="/main_page_img/aboutpage.jpg"
               alt="About EcoEden"

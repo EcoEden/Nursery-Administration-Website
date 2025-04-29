@@ -73,42 +73,46 @@ const SellersList = () => {
           <h1 className="text-4xl font-bold text-secondary">Sellers List</h1>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse bg-white shadow-lg rounded-lg">
-            <thead>
-              <tr className="bg-gray-200 text-gray-700 text-lg">
-                <th className="p-4 text-left">First Name</th>
-                <th className="p-4 text-left">Last Name</th>
-                <th className="p-4 text-left">Email</th>
-                <th className="p-4 text-left">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sellers.map((seller) => (
-                <tr key={seller._id} className="border-b hover:bg-gray-50">
-                  <td className="p-4 text-gray-800 font-medium">{seller.firstName}</td>
-                  <td className="p-4 text-gray-800 font-medium">{seller.lastName}</td>
-                  <td className="p-4 text-gray-600">{seller.email}</td>
-                  <td className="p-4 flex space-x-2">
-                    <button
-                      onClick={() => navigate(`/sellers/${seller._id}/products`)}
-                      className="bg-secondary text-white px-3 py-2 rounded-lg text-sm hover:bg-green-700"
-                    >
-                      View Products
-                    </button>
-
-                    <button
-                      onClick={() => handleDelete(seller._id)}
-                      className="bg-red-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-green-700"
-                    >
-                      Delete
-                    </button>
-                  </td>
+        {sellers.length === 0 ? (
+          <p className="text-center text-lg text-gray-600">No sellers found.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse bg-white shadow-lg rounded-lg">
+              <thead>
+                <tr className="bg-gray-200 text-gray-700 text-lg">
+                  <th className="p-4 text-left">First Name</th>
+                  <th className="p-4 text-left">Last Name</th>
+                  <th className="p-4 text-left">Email</th>
+                  <th className="p-4 text-left">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {sellers.map((seller) => (
+                  <tr key={seller._id} className="border-b hover:bg-gray-50">
+                    <td className="p-4 text-gray-800 font-medium">{seller.firstName}</td>
+                    <td className="p-4 text-gray-800 font-medium">{seller.lastName}</td>
+                    <td className="p-4 text-gray-600">{seller.email}</td>
+                    <td className="p-4 flex space-x-2">
+                      <button
+                        onClick={() => navigate(`/sellers/${seller._id}/products`)}
+                        className="bg-secondary text-white px-3 py-2 rounded-lg text-sm hover:bg-green-700"
+                      >
+                        View Products
+                      </button>
+
+                      <button
+                        onClick={() => handleDelete(seller._id)}
+                        className="bg-red-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-green-700"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </section>
   );
