@@ -62,7 +62,7 @@ const GardeningEquipment = () => {
   return (
     <section className="min-h-screen bg-green-50 py-5 px-4 sm:px-8 lg:px-20">
     <div className="max-w-6xl mx-auto">
-      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-green-700 text-center mb-8">
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary text-center mb-8">
         Gardening Equipment
       </h1>
       <p className="text-base sm:text-lg text-gray-600 text-center mb-10">
