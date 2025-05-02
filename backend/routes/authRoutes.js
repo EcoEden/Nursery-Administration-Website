@@ -29,13 +29,13 @@ router.post("/signup", async (req, res) => {
     if (userExists) return res.status(400).json({ message: "User already exists" });
 
     // Hash password
-    const hashedPassword = await hash(password, 10);
+    // const hashedPassword = await hash(password, 10);
 
     const newUser = new User({
       firstName,
       lastName,
       email,
-      password: hashedPassword,
+      password,
       image,
       role,
       location,
