@@ -27,7 +27,7 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build /app/dist/ /usr/share/nginx/html/
 
 # Optionally, copy your custom Nginx config (make sure nginx.conf exists)
-COPY nginx.conf /etc/nginx/nginx.conf  # Optional for routing
+#COPY nginx.conf /etc/nginx/nginx.conf  # Optional for routing
 
 # Expose port 80 for the web server
 EXPOSE 80
