@@ -52,7 +52,7 @@ const UsersList = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-100 flex justify-center items-center">
+            <div className=" bg-gray-100 flex justify-center items-center">
                 <p className="text-2xl font-semibold">Loading users...</p>
             </div>
         );

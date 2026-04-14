@@ -117,6 +117,8 @@ const EditProduct = () => {
               <option value="">Select Category</option>
               <option value="indoor">Indoor Plant</option>
               <option value="outdoor">Outdoor Plant</option>
+                <option value="herbs">Herbs</option>
+              <option value="decor pots">Decor Pots</option>
             </select>
           </div>
 

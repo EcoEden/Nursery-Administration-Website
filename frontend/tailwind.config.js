@@ -13,6 +13,7 @@ export default {
     textColor:{
       Secondary:"#fb923c",
       primary:"#de2c4d",
+      third:"bg-green-700"
     },
   
     fontFamily:{

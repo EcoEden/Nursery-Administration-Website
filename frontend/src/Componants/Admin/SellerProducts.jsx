@@ -58,7 +58,7 @@ const SellerProduct = () => {
   }
 
   return (
-    <section className="min-h-[50vh] bg-green-50 py-10 px-6 md:px-20">
+    <section className=" bg-green-50 py-10 px-6 md:px-20">
       <div className="max-w-7xl mx-auto bg-white p-6 rounded-xl shadow-md">
         <div className="flex items-center justify-center mb-6 text-gray-700">
           <img src="../../main_page_img/Product.png" alt="Products" className="w-10 h-10 mr-3" />

@@ -7,17 +7,20 @@ import toast, { Toaster } from 'react-hot-toast';
 
 
 function App() {
-
-
   return (
-    <> <Toaster />
-    <Navbar/>
-      <main>
-        <Outlet/>
+    <div className="flex flex-col min-h-screen">
+      <Toaster />
+
+      <Navbar />
+
+      <main className="flex-grow">
+        <Outlet />
       </main>
-    <Footer/>
-    </>
-  )
+
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+
+export default App;
