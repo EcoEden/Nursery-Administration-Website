@@ -136,6 +136,7 @@ const ProductPage = () => {
         } catch (error) {
             console.error("Error adding to cart:", error);
             alert("Error adding to cart.");
+            navigate("/login"); 
         } finally {
             setAddingToCart(false);
         }
